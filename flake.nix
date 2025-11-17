@@ -13,19 +13,15 @@
     }@inputs:
     {
       nixosConfigurations.lithium = nixos-raspberrypi.lib.nixosSystemFull {
-        #   # nixpkgs = import nixpkgs {
-        #   #   localSystem = "x86_64-linux";
-        #   #   crossSystem = "aarch64-linux";
-        #   # };
-        #
-        #   nixpkgs = import inputs.nixos-raspberrypi.inputs.nixpkgs {
-        #     # localSystem = "x86_64-linux";
-        #     # crossSystem = "aarch64-linux";
-        #   };
-
         specialArgs = inputs;
 
         modules = [
+          {
+            nixpkgs = {
+              buildPlatform = "x86_64-linux";
+              hostPlatform = "aarch64-linux";
+            };
+          }
           (
             {
               config,
