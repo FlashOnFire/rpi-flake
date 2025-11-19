@@ -1,13 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
     # follow `main` branch of this repository, considered being stable
+    nixpkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+    nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
     {
-      nixpkgs,
       nixos-raspberrypi,
       ...
     }@inputs:
@@ -41,6 +41,7 @@
                 raspberry-pi-5.display-rp1
                 usb-gadget-ethernet
                 ./pi5-configtxt.nix
+                ./configuration.nix
               ];
             }
           )
