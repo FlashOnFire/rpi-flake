@@ -15,6 +15,25 @@
     ./hardware-configuration.nix
   ];
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+  services.openssh = {
+    enable = true;
+    settings.PermitRootLogin = "yes";
+  };
+  programs.git.enable = true;
+
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+  };
+
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
   # boot.loader.grub.efiSupport = true;
