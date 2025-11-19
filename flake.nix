@@ -1,8 +1,9 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
     # follow `main` branch of this repository, considered being stable
+    nixpkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+    # nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -11,17 +12,23 @@
       nixos-raspberrypi,
       ...
     }@inputs:
+    let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+      };
+    in
     {
+      formatter.x86_64-linux = pkgs.nixfmt-tree;
       nixosConfigurations.lithium = nixos-raspberrypi.lib.nixosSystemFull {
         specialArgs = inputs;
 
         modules = [
-          {
-            nixpkgs = {
-              buildPlatform = "x86_64-linux";
-              hostPlatform = "aarch64-linux";
-            };
-          }
+          # {
+          #   nixpkgs = {
+          #     buildPlatform = "x86_64-linux";
+          #     hostPlatform = "aarch64-linux";
+          #   };
+          # }
           (
             {
               config,
@@ -35,12 +42,13 @@
               # list of modules
               imports = with nixos-raspberrypi.nixosModules; [
                 raspberry-pi-5.base
-                raspberry-pi-5.page-size-16k
+                # raspberry-pi-5.page-size-16k
                 raspberry-pi-5.display-vc4
-                raspberry-pi-5.bluetooth
-                raspberry-pi-5.display-rp1
-                usb-gadget-ethernet
+                # raspberry-pi-5.bluetooth
+                # raspberry-pi-5.display-rp1
+                # usb-gadget-ethernet
                 ./pi5-configtxt.nix
+                ./configuration.nix
               ];
             }
           )
