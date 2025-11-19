@@ -1,17 +1,24 @@
 {
   inputs = {
     # follow `main` branch of this repository, considered being stable
-    # nixpkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
+    nixpkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
     # nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
     {
+      nixpkgs,
       nixos-raspberrypi,
       ...
     }@inputs:
+    let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+      };
+    in
     {
+      formatter.x86_64-linux = pkgs.nixfmt-tree;
       nixosConfigurations.lithium = nixos-raspberrypi.lib.nixosSystemFull {
         specialArgs = inputs;
 
