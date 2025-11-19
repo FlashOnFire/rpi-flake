@@ -46,9 +46,7 @@
       "inputs": {
         "argononed": "argononed",
         "nixos-images": "nixos-images",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1758967172,
@@ -83,8 +81,7 @@
     },
     "root": {
       "inputs": {
-        "nixos-raspberrypi": "nixos-raspberrypi",
-        "nixpkgs": "nixpkgs"
+        "nixos-raspberrypi": "nixos-raspberrypi"
       }
     }
   },

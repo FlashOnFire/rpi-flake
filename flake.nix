@@ -1,9 +1,9 @@
 {
   inputs = {
     # follow `main` branch of this repository, considered being stable
-    nixpkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
+    # nixpkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
-    nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
+    # nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -16,12 +16,12 @@
         specialArgs = inputs;
 
         modules = [
-          {
-            nixpkgs = {
-              buildPlatform = "x86_64-linux";
-              hostPlatform = "aarch64-linux";
-            };
-          }
+          # {
+          #   nixpkgs = {
+          #     buildPlatform = "x86_64-linux";
+          #     hostPlatform = "aarch64-linux";
+          #   };
+          # }
           (
             {
               config,
@@ -35,11 +35,11 @@
               # list of modules
               imports = with nixos-raspberrypi.nixosModules; [
                 raspberry-pi-5.base
-                raspberry-pi-5.page-size-16k
+                # raspberry-pi-5.page-size-16k
                 raspberry-pi-5.display-vc4
-                raspberry-pi-5.bluetooth
-                raspberry-pi-5.display-rp1
-                usb-gadget-ethernet
+                # raspberry-pi-5.bluetooth
+                # raspberry-pi-5.display-rp1
+                # usb-gadget-ethernet
                 ./pi5-configtxt.nix
                 ./configuration.nix
               ];
