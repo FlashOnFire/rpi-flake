@@ -15,16 +15,6 @@
     ./hardware-configuration.nix
   ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-  };
-  programs.git.enable = true;
-
   nix = {
     settings = {
       experimental-features = [
@@ -43,18 +33,18 @@
   # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
   boot.loader.raspberryPi.bootloader = "kernel";
 
-  networking.hostName = "lithium"; # Define your hostname.
+  networking.hostName = "lithium";
 
   # This is mostly portions of safe network configuration defaults that
   # nixos-images and srvos provide
 
   networking.useNetworkd = true;
   # mdns
-  networking.firewall.allowedUDPPorts = [ 5353 ];
-  systemd.network.networks = {
-    "99-ethernet-default-dhcp".networkConfig.MulticastDNS = "yes";
-    "99-wireless-client-dhcp".networkConfig.MulticastDNS = "yes";
-  };
+  # networking.firewall.allowedUDPPorts = [ 5353 ];
+  # systemd.network.networks = {
+  #   "99-ethernet-default-dhcp".networkConfig.MulticastDNS = "yes";
+  #   "99-wireless-client-dhcp".networkConfig.MulticastDNS = "yes";
+  # };
 
   # This comment was lifted from `srvos`
   # Do not take down the network for too long when upgrading,
@@ -83,49 +73,20 @@
 
   time.timeZone = "Europe/Paris";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "fr";
+    # useXkbConfig = true; # use xkb.options in tty.
+  };
 
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.alice = {
+  # users.users.nixos = {
   #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  #   extraGroups = [ "wheel" ];
   #   packages = with pkgs; [
   #     tree
   #   ];
   # };
-
-  # programs.firefox.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -134,21 +95,20 @@
     wget
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
 
-  # List services that you want to enable:
+  services.openssh = {
+    enable = true;
+    settings.PermitRootLogin = "yes";
+  };
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  programs.git.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

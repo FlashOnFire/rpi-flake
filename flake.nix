@@ -48,7 +48,6 @@
                 # raspberry-pi-5.display-rp1
                 # usb-gadget-ethernet
                 ./pi5-configtxt.nix
-                ./configuration.nix
               ];
             }
           )
@@ -74,6 +73,7 @@
           )
 
           ./configuration.nix
+
         ];
       };
     };
