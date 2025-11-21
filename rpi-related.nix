@@ -3,6 +3,7 @@
   imports = with nixos-raspberrypi.nixosModules.raspberry-pi-5; [
     base
     display-vc4
+    page-size-16k
     ./pi5-configtxt.nix
   ];
 
