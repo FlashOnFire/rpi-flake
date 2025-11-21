@@ -3,16 +3,23 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  config,
-  lib,
   pkgs,
+  _utils,
+  config,
   ...
 }:
+let
+  secret1laVarNix = _utils.setupSingleSecret config "secret1" { };
+in
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./rpi-related.nix
+    ./uku_utils.nix
+    secret1laVarNix.generate
+    # secret1laVarNix.path c'est le path vers le secret dans /run/agenix/...
   ];
 
   nix = {
@@ -31,7 +38,6 @@
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
   # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-  boot.loader.raspberryPi.bootloader = "kernel";
 
   networking.hostName = "lithium";
 
@@ -109,7 +115,6 @@
   virtualisation.docker.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
