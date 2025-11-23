@@ -1,96 +1,57 @@
 {
   inputs = {
-    # follow `main` branch of this repository, considered being stable
-    nixpkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
-    # nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
+
+    systems.url = "github:nix-systems/default";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    nixpkgs-patch-fix-raspi-module-renames = {
+      url = "https://github.com/NixOS/nixpkgs/pull/398456.diff";
+      flake = false;
+    };
 
     agenix.url = "github:ryantm/agenix";
-    # optional, not necessary for the module
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    # optionally choose not to download darwin deps (saves some resources on Linux)
     agenix.inputs.darwin.follows = "";
   };
 
   outputs =
     {
       nixpkgs,
-      nixos-raspberrypi,
+      nixpkgs-patcher,
       agenix,
       ...
     }@inputs:
     let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-      };
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
     in
     {
       formatter.x86_64-linux = pkgs.nixfmt-tree;
-      nixosConfigurations.lithium = nixos-raspberrypi.lib.nixosSystemFull {
+
+      nixosConfigurations.lithium = nixpkgs-patcher.lib.nixosSystem {
         specialArgs = inputs;
-
         modules = [
-          # {
-          #   nixpkgs = {
-          #     buildPlatform = "x86_64-linux";
-          #     hostPlatform = "aarch64-linux";
-          #   };
-          # }
-          (
-            {
-              config,
-              pkgs,
-              lib,
-              nixos-raspberrypi,
-              ...
-            }:
-            {
-              # Hardware specific configuration, see section below for a more complete
-              # list of modules
-              imports = with nixos-raspberrypi.nixosModules; [
-                raspberry-pi-5.base
-                # raspberry-pi-5.page-size-16k
-                raspberry-pi-5.display-vc4
-                # raspberry-pi-5.bluetooth
-                # raspberry-pi-5.display-rp1
-                # usb-gadget-ethernet
-                ./configuration.nix
-                agenix.nixosModules.default
-                ./pi5-configtxt.nix
-              ];
-            }
-          )
-
-          (
-            {
-              config,
-              pkgs,
-              lib,
-              ...
-            }:
-            {
-              system.nixos.tags =
-                let
-                  cfg = config.boot.loader.raspberryPi;
-                in
-                [
-                  "raspberry-pi-${cfg.variant}"
-                  cfg.bootloader
-                  config.boot.kernelPackages.kernel.version
-                ];
-            }
-          )
-
+          ./configuration.nix
+          agenix.nixosModules.default
         ];
       };
     };
-
-  # Optional: Binary cache for the flake
   nixConfig = {
     extra-substituters = [
+      "https://nix-community.cachix.org"
       "https://nixos-raspberrypi.cachix.org"
     ];
     extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
     ];
   };
