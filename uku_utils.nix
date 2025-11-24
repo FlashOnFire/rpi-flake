@@ -12,7 +12,7 @@
     in
     {
       generate = {
-        age.secrets = lib.genAttrs secrets (name: extra // { file = ../secrets/${hostName}/${name}.age; });
+        age.secrets = lib.genAttrs secrets (name: extra // { file = ./secrets/${hostName}/${name}.age; });
       };
       get = name: _config.age.secrets.${name}.path;
     };
@@ -25,7 +25,7 @@
     {
       generate = {
         age.secrets.${name} = extra // {
-          file = ../secrets/${hostName}/${name}.age;
+          file = ./secrets/${hostName}/${name}.age;
         };
       };
       inherit (_config.age.secrets.${name}) path;
@@ -39,7 +39,7 @@
     }:
     {
       generate = {
-        age.secrets = lib.genAttrs secrets (name: extra // { file = ../secrets/shared/${name}.age; });
+        age.secrets = lib.genAttrs secrets (name: extra // { file = ./secrets/shared/${name}.age; });
       };
       get = name: _config.age.secrets.${name}.path;
     };

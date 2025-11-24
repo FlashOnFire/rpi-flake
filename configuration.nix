@@ -17,7 +17,6 @@ in
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./rpi-related.nix
-    ./uku_utils.nix
     secret1laVarNix.generate
     # secret1laVarNix.path c'est le path vers le secret dans /run/agenix/...
   ];
