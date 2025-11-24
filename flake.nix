@@ -25,25 +25,34 @@
 
   outputs =
     {
-      nixpkgs,
-      nixpkgs-patcher,
+      flake-parts,
       agenix,
+      nixpkgs-patcher,
       ...
     }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-    in
-    {
-      formatter.x86_64-linux = pkgs.nixfmt-tree;
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      flake.nixosConfigurations.lithium = nixpkgs-patcher.lib.nixosSystem {
+        specialArgs = inputs // {
+          _utils = (import ./uku_utils.nix) { lib = flake-parts.lib; };
+        };
 
-      nixosConfigurations.lithium = nixpkgs-patcher.lib.nixosSystem {
-        specialArgs = inputs;
         modules = [
           ./configuration.nix
           agenix.nixosModules.default
         ];
       };
+
+      perSystem =
+        { pkgs, ... }:
+        {
+          formatter = pkgs.nixfmt-tree;
+        };
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
     };
   nixConfig = {
     extra-substituters = [
