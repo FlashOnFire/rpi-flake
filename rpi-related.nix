@@ -4,6 +4,7 @@
     base
     display-vc4
     page-size-16k
+    bluetooth
     ./pi5-configtxt.nix
   ];
 
