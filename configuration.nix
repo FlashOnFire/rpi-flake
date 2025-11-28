@@ -85,13 +85,13 @@ in
     # useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # users.users.nixos = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ];
-  #   packages = with pkgs; [
-  #     tree
-  #   ];
-  # };
+  users.users.nixos = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4VZD6jMxRKG/RLaS23n1tBK4vNiyzTQwrPKCr+B/ZaqDRKvCx2m54z4EAuZhjDTg9+fPsi+t7HVUV1s8WacP+98aYZ4FLDGvQaOIgxet1kAt8fjAX6FFZWHH/iz0FwovSxSeG7w605EgrGtIQe/G5K/A+c2b2wpOkAIWkPmgHM+eLRxrTlkhJX/7SwzE50rKQrlS0xNGeYL5BQ0aFvZCrrHTaZJW7Lx/RPSU50RhFb+RQMnBXEvTQ3HdEdSLBnmOm6CkL2+19pbLG+79AQfjbQgKPQ5aReAOPzSUWlwrQeXrcaNJ3rKx/vcRTq5eNxKJLO0lrYhwFLQHJXdDB1gUvcrfinYEA+u2NM3CkyWquL/1Z2vAklRH4auzsvvZFysmSs+x9BA1XoMtZ8vJ8BAnFJgKnZeKFAXD/mIH5M0uUBXk+P/M32lCjU13pBWs641lV28DgF4lHNuysWcck1VGXMXTzUWScGTZrxopGkoRVEnrTjrKwSc3ngFG3YiPHMXE= flashonfire@hydrogen"
+    ];
+  };
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
