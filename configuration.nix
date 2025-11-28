@@ -19,6 +19,7 @@ in
     ./rpi-related.nix
     secret1laVarNix.generate
     # secret1laVarNix.path c'est le path vers le secret dans /run/agenix/...
+    ./apps
   ];
 
   nix = {
@@ -37,6 +38,13 @@ in
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
   # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.extraPools = [ "storage" ];
+  boot.zfs.devNodes = "/dev/disk/by-id";
+  services.zfs.autoScrub.enable = true;
+  networking.hostId = "44cadff6";
 
   networking.hostName = "lithium";
 
@@ -61,6 +69,8 @@ in
     # Services that are only restarted might be not able to resolve when resolved is stopped before
     systemd-resolved.stopIfChanged = false;
   };
+
+  services.resolved.extraConfig = "DNSStubListener=no";
 
   # Use iwd instead of wpa_supplicant. It has a user friendly CLI
   networking.wireless.enable = false;
@@ -114,6 +124,7 @@ in
   virtualisation.docker.enable = true;
 
   # Open ports in the firewall.
+  networking.firewall.allowedTCPPorts = [ 80 5001 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
