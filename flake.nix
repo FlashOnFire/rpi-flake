@@ -18,9 +18,18 @@
       flake = false;
     };
 
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.inputs.darwin.follows = "";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        darwin.follows = "";
+      };
+    };
+
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -28,10 +37,14 @@
       flake-parts,
       agenix,
       nixpkgs-patcher,
+      deploy-rs,
+      self,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       flake.nixosConfigurations.lithium = nixpkgs-patcher.lib.nixosSystem {
+        system = "x86_64-linux";
+
         specialArgs = inputs // {
           _utils = (import ./uku_utils.nix) { lib = flake-parts.lib; };
         };
@@ -39,19 +52,35 @@
         modules = [
           ./configuration.nix
           agenix.nixosModules.default
+          (
+            { lib, ... }:
+            {
+              nixpkgs.buildPlatform = lib.mkDefault "x86_64-linux";
+              nixpkgs.hostPlatform = "aarch64-linux";
+            }
+          )
         ];
       };
 
       perSystem =
-        { pkgs, ... }:
+        { pkgs, system, ... }:
         {
           formatter = pkgs.nixfmt-tree;
+
+          deploy.nodes.lithium = {
+            hostname = "srv.guillaume-calderon.fr";
+            profiles.system = {
+              sshUser = "nixos";
+              user = "root";
+              interactiveSudo = true;
+              path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.lithium;
+            };
+          };
+          checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
         };
       systems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
       ];
     };
   nixConfig = {
