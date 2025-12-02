@@ -119,7 +119,8 @@ in
 
   services.openssh = {
     enable = true;
-    settings.PermitRootLogin = "yes";
+    settings.PasswordAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
   };
 
   programs.git.enable = true;
