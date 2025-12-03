@@ -34,11 +34,6 @@
         darwin.follows = "";
       };
     };
-
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -46,7 +41,6 @@
       flake-parts,
       agenix,
       nixpkgs-patcher,
-      deploy-rs,
       self,
       ...
     }@inputs:
@@ -71,24 +65,12 @@
             )
           ];
         };
-
-        deploy.nodes.lithium = {
-          hostname = "srv.guillaume-calderon.fr";
-          profiles.system = {
-            sshUser = "nixos";
-            user = "root";
-            interactiveSudo = true;
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.lithium;
-          };
-        };
       };
 
       perSystem =
         { pkgs, system, ... }:
         {
           formatter = pkgs.nixfmt-tree;
-
-          checks = deploy-rs.lib.${system}.deployChecks self.deploy;
         };
       systems = [
         "x86_64-linux"
