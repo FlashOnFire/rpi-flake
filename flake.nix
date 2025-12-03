@@ -13,6 +13,7 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
     nixpkgs-patch-fix-raspi-module-renames = {
       url = "https://github.com/NixOS/nixpkgs/pull/398456.diff";
       flake = false;
@@ -50,24 +51,36 @@
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      flake.nixosConfigurations.lithium = nixpkgs-patcher.lib.nixosSystem {
-        system = "x86_64-linux";
+      flake = {
+        nixosConfigurations.lithium = nixpkgs-patcher.lib.nixosSystem {
+          system = "x86_64-linux";
 
-        specialArgs = inputs // {
-          _utils = (import ./uku_utils.nix) { lib = flake-parts.lib; };
+          specialArgs = inputs // {
+            _utils = (import ./uku_utils.nix) { lib = flake-parts.lib; };
+          };
+
+          modules = [
+            ./configuration.nix
+            agenix.nixosModules.default
+            (
+              { lib, ... }:
+              {
+                nixpkgs.buildPlatform = lib.mkDefault "x86_64-linux";
+                nixpkgs.hostPlatform = "aarch64-linux";
+              }
+            )
+          ];
         };
 
-        modules = [
-          ./configuration.nix
-          agenix.nixosModules.default
-          (
-            { lib, ... }:
-            {
-              nixpkgs.buildPlatform = lib.mkDefault "x86_64-linux";
-              nixpkgs.hostPlatform = "aarch64-linux";
-            }
-          )
-        ];
+        deploy.nodes.lithium = {
+          hostname = "srv.guillaume-calderon.fr";
+          profiles.system = {
+            sshUser = "nixos";
+            user = "root";
+            interactiveSudo = true;
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.lithium;
+          };
+        };
       };
 
       perSystem =
@@ -75,16 +88,7 @@
         {
           formatter = pkgs.nixfmt-tree;
 
-          deploy.nodes.lithium = {
-            hostname = "srv.guillaume-calderon.fr";
-            profiles.system = {
-              sshUser = "nixos";
-              user = "root";
-              interactiveSudo = true;
-              path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.lithium;
-            };
-          };
-          checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+          checks = deploy-rs.lib.${system}.deployChecks self.deploy;
         };
       systems = [
         "x86_64-linux"
