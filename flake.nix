@@ -17,6 +17,14 @@
       url = "https://github.com/NixOS/nixpkgs/pull/398456.diff";
       flake = false;
     };
+    nixpkgs-patch-neovim-zig-build = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/cfb25ebf1c5d0ef056c7d01eee3987ce48e55434.diff";
+      flake = false;
+    };
+    nixpkgs-patch-fix-neovim-cross-compile = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/e59418955fbf1186a9ac36c6f4f9fa81b27bd952.diff";
+      flake = false;
+    };
 
     agenix = {
       url = "github:ryantm/agenix";
