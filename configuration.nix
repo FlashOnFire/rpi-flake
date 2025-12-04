@@ -22,11 +22,16 @@ in
     ./apps
   ];
 
+  age.identityPaths = [ "/impure/age/key" ];
+
   nix = {
     settings = {
       experimental-features = [
         "nix-command"
         "flakes"
+      ];
+      trusted-public-keys = [
+        "hydrogen:D79y9lrvl+faJ/tOCrQSMZ0u2vtDCVDJhiBQN0EpqqE="
       ];
     };
   };
