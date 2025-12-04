@@ -3,7 +3,8 @@
 }:
 {
   imports = [
-    ./caddy.nix
     ./adguard.nix
+    ./authelia.nix
+    ./caddy.nix
   ];
 }

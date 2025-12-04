@@ -5,20 +5,13 @@
 {
   pkgs,
   _utils,
-  config,
   ...
 }:
-let
-  secret1laVarNix = _utils.setupSingleSecret config "secret1" { };
-in
-
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./rpi-related.nix
-    secret1laVarNix.generate
-    # secret1laVarNix.path c'est le path vers le secret dans /run/agenix/...
     ./apps
   ];
 
@@ -134,7 +127,7 @@ in
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     80
-    5001
+    443
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.

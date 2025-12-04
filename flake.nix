@@ -50,7 +50,7 @@
           system = "x86_64-linux";
 
           specialArgs = inputs // {
-            _utils = (import ./uku_utils.nix) { lib = flake-parts.lib; };
+            _utils = (import ./uku_utils.nix) { lib = inputs.nixpkgs.lib; };
           };
 
           modules = [
