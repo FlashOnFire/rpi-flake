@@ -7,6 +7,9 @@ deploy-local:
 build:
     nix build .#nixosConfigurations.lithium.config.system.build.toplevel
 
+nom-build:
+    nix-shell -p nix-output-monitor --run "nom build .#nixosConfigurations.lithium.config.system.build.toplevel"
+
 check:
     nix flake check
 
