@@ -110,11 +110,6 @@
     wget
   ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
