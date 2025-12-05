@@ -1,0 +1,4 @@
+{ ... }:
+{
+  services.languagetool.enable = true;
+}

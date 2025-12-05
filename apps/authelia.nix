@@ -116,6 +116,11 @@ in
               domain_regex = "dns.lithium.ovh";
               policy = "one_factor";
             }
+
+            {
+              domain_regex = "lt.lithium.ovh";
+              policy = "one_factor";
+            }
           ];
         };
 
