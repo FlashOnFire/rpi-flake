@@ -26,12 +26,11 @@ in
       X_AUTHELIA_CONFIG_FILTERS = "template";
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.get "smtp";
     };
+    serviceConfig = {
+      RuntimeDirectory = "authelia";
+      RuntimeDirectoryMode = 775;
+    };
   };
-
-  systemd.tmpfiles.rules = [
-    "d /run/authelia 0775 authelia-main caddy"
-    "z /run/authelia/authelia.sock 0775 authelia-main caddy"
-  ];
 
   services.authelia = {
     instances.main = {
@@ -70,8 +69,8 @@ in
           address = "unix:///run/authelia/authelia.sock?umask=0117";
           endpoints = {
             authz = {
-              auth-request = {
-                implementation = "AuthRequest";
+              forward-auth = {
+                implementation = "ForwardAuth";
               };
             };
           };
@@ -90,7 +89,7 @@ in
             address = "smtp://smtp.mail.ovh.net:587";
             timeout = "15s";
             username = "server@lithium.ovh";
-            sender = "Authelia <authelia@lithium.ovh>";
+            sender = "Authelia <server@lithium.ovh>";
             subject = "[Authelia] {title}";
             startup_check_address = "guillaume.calderon1313@gmail.com";
             disable_require_tls = false;
@@ -103,8 +102,19 @@ in
           default_policy = "deny";
           rules = [
             {
-              domain_regex = "authelia.lithium.ovh";
-              policy = "two_factor";
+              domain_regex = "lithium.ovh";
+              policy = "one_factor";
+            }
+
+            {
+              domain_regex = "auth.lithium.ovh";
+              policy = "one_factor";
+              # policy = "two_factor";
+            }
+
+            {
+              domain_regex = "dns.lithium.ovh";
+              policy = "one_factor";
             }
           ];
         };
@@ -121,7 +131,7 @@ in
           cookies = [
             {
               domain = "lithium.ovh";
-              authelia_url = "https://authelia.lithium.ovh";
+              authelia_url = "https://auth.lithium.ovh";
               default_redirection_url = "https://lithium.ovh";
             }
           ];

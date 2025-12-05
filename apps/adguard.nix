@@ -24,9 +24,7 @@
           enabled = false; # Enforcing "Safe search" option for search engines, when possible.
         };
       };
-      # The following notation uses map
-      # to not have to manually create {enabled = true; url = "";} for every filter
-      # This is, however, fully optional
+
       filters =
         map
           (url: {
