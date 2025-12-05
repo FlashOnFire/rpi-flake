@@ -1,0 +1,6 @@
+{ ... }:
+{
+  services.onlyoffice = {
+    enable = true;
+  };
+}

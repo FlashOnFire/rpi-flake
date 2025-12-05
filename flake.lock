@@ -179,6 +179,18 @@
         "type": "github"
       }
     },
+    "nixpkgs-patch-fix-java-properties-cross-compile": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-vT64kqVt4TitAMaK5/QMWsGTyjpfgGrlG7wniK66/6o=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/01a259a65d9939c9cea08b7867e9f3807c591b4b.diff"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/01a259a65d9939c9cea08b7867e9f3807c591b4b.diff"
+      }
+    },
     "nixpkgs-patch-fix-raspi-module-renames": {
       "flake": false,
       "locked": {
@@ -228,6 +240,7 @@
         "flake-utils": "flake-utils",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-patch-fix-java-properties-cross-compile": "nixpkgs-patch-fix-java-properties-cross-compile",
         "nixpkgs-patch-fix-raspi-module-renames": "nixpkgs-patch-fix-raspi-module-renames",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
