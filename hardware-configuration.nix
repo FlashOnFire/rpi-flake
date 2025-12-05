@@ -12,27 +12,37 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ ];
+  boot.initrd.availableKernelModules = [ "nvme" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems = {
-    "/boot/firmware" = {
-      device = "/dev/disk/by-label/FIRMWARE";
-      fsType = "vfat";
-      options = [
-        "noatime"
-        "noauto"
-        "x-systemd.automount"
-        "x-systemd.idle-timeout=1min"
-      ];
-    };
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
+  # fileSystems = {
+  #   "/boot/firmware" = {
+  #     device = "/dev/disk/by-label/FIRMWARE";
+  #     fsType = "vfat";
+  #     options = [
+  #       "noatime"
+  #       "noauto"
+  #       "x-systemd.automount"
+  #       "x-systemd.idle-timeout=1min"
+  #     ];
+  #   };
+  #   "/" = {
+  #     device = "/dev/disk/by-label/NIXOS_SD";
+  #     fsType = "ext4";
+  #     options = [ "noatime" ];
+  #   };
+  # };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
+    fsType = "ext4";
+  };
+
+  fileSystems."/boot/firmware" = {
+    device = "systemd-1";
+    fsType = "autofs";
   };
 
   swapDevices = [ ];
