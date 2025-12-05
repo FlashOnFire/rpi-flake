@@ -179,18 +179,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-patch-fix-neovim-cross-compile": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-yvJnG6x0+Td55bD15qa+9RzV8u0x38HZDe+Yle16/DQ=",
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/e59418955fbf1186a9ac36c6f4f9fa81b27bd952.diff"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/e59418955fbf1186a9ac36c6f4f9fa81b27bd952.diff"
-      }
-    },
     "nixpkgs-patch-fix-raspi-module-renames": {
       "flake": false,
       "locked": {
@@ -201,18 +189,6 @@
       "original": {
         "type": "file",
         "url": "https://github.com/NixOS/nixpkgs/pull/398456.diff"
-      }
-    },
-    "nixpkgs-patch-neovim-zig-build": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-tyGqa+N9IYLyt0ZnE7giwPoN9FrHomXCku2wzmc8JGU=",
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/cfb25ebf1c5d0ef056c7d01eee3987ce48e55434.diff"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/cfb25ebf1c5d0ef056c7d01eee3987ce48e55434.diff"
       }
     },
     "nixpkgs-patcher": {
@@ -232,11 +208,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1764517877,
-        "narHash": "sha256-pp3uT4hHijIC8JUK5MEqeAWmParJrgBVzHLNfJDZxg4=",
+        "lastModified": 1764667669,
+        "narHash": "sha256-7WUCZfmqLAssbDqwg9cUDAXrSoXN79eEEq17qhTNM/Y=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2d293cbfa5a793b4c50d17c05ef9e385b90edf6c",
+        "rev": "418468ac9527e799809c900eda37cbff999199b6",
         "type": "github"
       },
       "original": {
@@ -252,9 +228,7 @@
         "flake-utils": "flake-utils",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-patch-fix-neovim-cross-compile": "nixpkgs-patch-fix-neovim-cross-compile",
         "nixpkgs-patch-fix-raspi-module-renames": "nixpkgs-patch-fix-raspi-module-renames",
-        "nixpkgs-patch-neovim-zig-build": "nixpkgs-patch-neovim-zig-build",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }
