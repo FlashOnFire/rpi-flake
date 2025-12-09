@@ -18,10 +18,6 @@
       url = "https://github.com/NixOS/nixpkgs/pull/398456.diff";
       flake = false;
     };
-    nixpkgs-patch-fix-java-properties-cross-compile = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/01a259a65d9939c9cea08b7867e9f3807c591b4b.diff";
-      flake = false;
-    };
 
     agenix = {
       url = "github:ryantm/agenix";
