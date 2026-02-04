@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+    nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
 
     systems.url = "github:nix-systems/default";
