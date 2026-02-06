@@ -6,6 +6,11 @@
 
   services.caddy = {
     enable = true;
+
+    globalConfig = ''
+      admin off
+    '';
+
     virtualHosts."https://lithium.ovh".extraConfig = ''
       forward_auth unix//run/authelia/authelia.sock {
         uri /api/authz/forward-auth
