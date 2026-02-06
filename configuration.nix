@@ -70,7 +70,10 @@
     systemd-resolved.stopIfChanged = false;
   };
 
-  services.resolved.settings.Resolve.DNSStubListener = false;
+  services.resolved.settings.Resolve = {
+    DNSStubListener = false;
+    LLMNR = false;
+  };
 
   # Use iwd instead of wpa_supplicant. It has a user friendly CLI
   networking.wireless.enable = false;
