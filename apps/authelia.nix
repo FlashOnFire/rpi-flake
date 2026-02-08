@@ -1,4 +1,10 @@
-{ config, _utils, ... }:
+{
+  config,
+  _utils,
+  _domain_base,
+  _smtp_server,
+  ...
+}:
 let
   secrets = _utils.setupSecrets config {
     secrets = [
@@ -53,7 +59,7 @@ in
 
         totp = {
           disable = false;
-          issuer = "lithium.ovh";
+          issuer = _domain_base;
           algorithm = "sha1";
           digits = 6;
           period = 30;
@@ -88,8 +94,8 @@ in
           smtp = {
             address = "smtp://smtp.mail.ovh.net:587";
             timeout = "15s";
-            username = "server@lithium.ovh";
-            sender = "Authelia <server@lithium.ovh>";
+            username = "server@${_domain_base}";
+            sender = "Authelia <server@${_domain_base}>";
             subject = "[Authelia] {title}";
             startup_check_address = "guillaume.calderon1313@gmail.com";
             disable_require_tls = false;
@@ -102,28 +108,28 @@ in
           default_policy = "deny";
           rules = [
             {
-              domain_regex = "lithium.ovh";
+              domain_regex = _domain_base;
               policy = "one_factor";
             }
 
             {
-              domain_regex = "auth.lithium.ovh";
+              domain_regex = "auth.${_domain_base}";
               policy = "one_factor";
               # policy = "two_factor";
             }
 
             {
-              domain_regex = "dns.lithium.ovh";
+              domain_regex = "dns.${_domain_base}";
               policy = "one_factor";
             }
 
             {
-              domain_regex = "lt.lithium.ovh";
+              domain_regex = "lt.${_domain_base}";
               policy = "one_factor";
             }
 
             {
-              domain_regex = "office.lithium.ovh";
+              domain_regex = "office.${_domain_base}";
               policy = "one_factor";
             }
           ];
@@ -140,9 +146,9 @@ in
         session = {
           cookies = [
             {
-              domain = "lithium.ovh";
-              authelia_url = "https://auth.lithium.ovh";
-              default_redirection_url = "https://lithium.ovh";
+              domain = _domain_base;
+              authelia_url = "https://auth.${_domain_base}";
+              default_redirection_url = "https://${_domain_base}";
             }
           ];
         };

@@ -1,6 +1,8 @@
+domain := "lithium.ovh"
+
 # Deploys to target using domain name
 deploy:
-    nix-shell -p nixos-rebuild --run "nixos-rebuild --target-host nixos@lithium.ovh switch --sudo --flake .#lithium --ask-sudo-password"
+    nix-shell -p nixos-rebuild --run "nixos-rebuild --target-host nixos@{{domain}} switch --sudo --flake .#lithium --ask-sudo-password"
 
 # Deploys to target using IP adress
 deploy-local:
@@ -28,12 +30,12 @@ fmt:
 
 # Dry-activate deployment
 dry-deploy:
-    nix-shell -p nixos-rebuild --run "nixos-rebuild --target-host nixos@lithium.ovh dry-activate --sudo --flake . --ask-sudo-password"
+    nix-shell -p nixos-rebuild --run "nixos-rebuild --target-host nixos@{{domain}} dry-activate --sudo --flake . --ask-sudo-password"
 
 # Reboots the server
 reboot:
-    ssh -t nixos@lithium.ovh "sudo reboot"
+    ssh -t nixos@{{domain}} "sudo reboot"
 
 # SSH into the server
 ssh:
-    ssh nixos@lithium.ovh
+    ssh nixos@{{domain}}

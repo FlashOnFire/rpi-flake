@@ -45,6 +45,8 @@
 
           specialArgs = inputs // {
             _utils = (import ./uku_utils.nix) { lib = inputs.nixpkgs.lib; };
+            _domain_base = "lithium.ovh";
+            _smtp_server = "smtp.mail.ovh.net";
           };
 
           modules = [

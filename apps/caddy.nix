@@ -1,4 +1,7 @@
-{ ... }:
+{
+  _domain_base,
+  ...
+}:
 {
   users.users."caddy".extraGroups = [
     "authelia-main"
@@ -11,7 +14,7 @@
       admin off
     '';
 
-    virtualHosts."https://lithium.ovh".extraConfig = ''
+    virtualHosts."https://${_domain_base}".extraConfig = ''
       forward_auth unix//run/authelia/authelia.sock {
         uri /api/authz/forward-auth
         ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
@@ -24,14 +27,14 @@
       respond "hello world"
     '';
 
-    virtualHosts."https://auth.lithium.ovh".extraConfig = ''
+    virtualHosts."https://auth.${_domain_base}".extraConfig = ''
       reverse_proxy unix//run/authelia/authelia.sock {
         header_down X-Real-IP {http.request.remote}
         header_down X-Forwarded-For {http.request.remote}
       }
     '';
 
-    virtualHosts."https://dns.lithium.ovh".extraConfig = ''
+    virtualHosts."https://dns.${_domain_base}".extraConfig = ''
       forward_auth unix//run/authelia/authelia.sock {
         uri /api/authz/forward-auth
         ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
@@ -45,7 +48,7 @@
       }
     '';
 
-    virtualHosts."https://lt.lithium.ovh".extraConfig = ''
+    virtualHosts."https://lt.${_domain_base}".extraConfig = ''
       forward_auth unix//run/authelia/authelia.sock {
         uri /api/authz/forward-auth
         ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
@@ -59,7 +62,7 @@
       }
     '';
 
-    virtualHosts."https://office.lithium.ovh".extraConfig = ''
+    virtualHosts."https://office.${_domain_base}".extraConfig = ''
       forward_auth unix//run/authelia/authelia.sock {
         uri /api/authz/forward-auth
         ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
@@ -70,6 +73,14 @@
 
       reverse_proxy :8000 {
         header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
+      }
+    '';
+
+    virtualHosts."https://vaultwarden.${_domain_base}".extraConfig = ''
+      encode zstd gzip
+
+      reverse_proxy :8222 {
+          header_up X-Real-IP {remote_host}
       }
     '';
   };
