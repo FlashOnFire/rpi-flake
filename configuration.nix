@@ -73,6 +73,7 @@
   services.resolved.settings.Resolve = {
     DNSStubListener = false;
     LLMNR = false;
+    MulticastDNS = false;
   };
 
   # Use iwd instead of wpa_supplicant. It has a user friendly CLI
