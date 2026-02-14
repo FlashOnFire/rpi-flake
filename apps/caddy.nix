@@ -76,12 +76,12 @@
       }
     '';
 
-    virtualHosts."https://vaultwarden.${_domain_base}".extraConfig = ''
-      encode zstd gzip
-
-      reverse_proxy :8222 {
-          header_up X-Real-IP {remote_host}
-      }
-    '';
+    # virtualHosts."https://vaultwarden.${_domain_base}".extraConfig = ''
+    #   encode zstd gzip
+    #
+    #   reverse_proxy :8222 {
+    #       header_up X-Real-IP {remote_host}
+    #   }
+    # '';
   };
 }
