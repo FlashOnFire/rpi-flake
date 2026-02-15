@@ -12,7 +12,7 @@
           # Uncomment the following to use a local DNS service (e.g. Unbound)
           # Additionally replace the address & port as needed
           # "127.0.0.1:5335"
-          "base.dns.mullvad.net"
+          "https://base.dns.mullvad.net/dns-query"
         ];
       };
       filtering = {
