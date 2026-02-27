@@ -62,6 +62,15 @@
               {
                 nixpkgs.buildPlatform = "x86_64-linux";
                 nixpkgs.hostPlatform = "aarch64-linux";
+                nixpkgs.overlays = [
+                  (final: prev: {
+                    gnutls = prev.gnutls.overrideAttrs (prevAttrs: {
+                      postPatch = prevAttrs.postPatch + ''
+                        touch doc/stamp_error_codes
+                      '';
+                    });
+                  })
+                ];
               }
             )
           ];
