@@ -24,8 +24,8 @@
         "flakes"
       ];
       trusted-public-keys = [
-        "hydrogen:D79y9lrvl+faJ/tOCrQSMZ0u2vtDCVDJhiBQN0EpqqE="
         "helium:g5v7jsnVLhgwbW2I9JIJ4bzy2lKlaT7nRjznsyNbrf0="
+        "beryllium:Ki/gTyVwj40wjhqpfKI08vPwQ00D3CWCoPuIpzzMu0s="
       ];
     };
   };
