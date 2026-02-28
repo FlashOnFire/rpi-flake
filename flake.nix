@@ -80,6 +80,13 @@
       perSystem =
         { pkgs, system, ... }:
         {
+          devShells.default = pkgs.mkShellNoCC {
+            packages = with pkgs; [
+              agenix.packages.${system}.default
+              just
+            ];
+          };
+
           formatter = pkgs.nixfmt-tree;
         };
       systems = [
