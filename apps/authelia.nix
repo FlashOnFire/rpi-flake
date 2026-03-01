@@ -124,11 +124,6 @@ in
             }
 
             {
-              domain_regex = "lt.${_domain_base}";
-              policy = "one_factor";
-            }
-
-            {
               domain_regex = "office.${_domain_base}";
               policy = "one_factor";
             }
@@ -153,25 +148,41 @@ in
           ];
         };
 
-        # identity_providers.oidc = {
-        # enable to make it working so using settingsFiles (look above)
-        # jwks = [
-        #   {
-        #     key_id = "main";
-        #     key = ''{{ secret "${config.age.secrets."authelia/oAuth2PrivateKey".path}" | mindent 10 "|" | msquote }}'';
-        #   }
-        # ];
-        # claims_policies = {
-        #   grafana.id_token = [
-        #     "email"
-        #     "name"
-        #     "groups"
-        #     "preferred_username"
-        #   ];
-        #
-        # };
-        # clients = [ ];
-        # };
+        identity_providers.oidc = {
+          # enable to make it working so using settingsFiles (look above)
+          # jwks = [
+          #   {
+          #     key_id = "main";
+          #     key = ''{{ secret "${
+          #       config.age.secrets."authelia/oAuth2PrivateKey".path
+          #     }" | mindent 10 "|" | msquote }}'';
+          #   }
+          # ];
+          clients = [
+            {
+              client_name = "Matrix";
+              client_secret = "$pbkdf2-sha512$310000$XTfwKsUrL8t49jUidXws3A$o3B8DWtgQkSdYje8HKmFIqY/luftDyTSgPD7kHATJrhVDoq40.47iIvwIooNVA3jguKuf7zQ21PtA.AseGQUNA";
+              client_id = "IkhbiLxn.MQVKQeBFAlvMfu3-RdUMScM0PcnpDSyjSTGwjs0VGveq_yii.GOavtNyoZYC9U6";
+              public = false;
+              authorization_policy = "one_factor";
+              redirect_uris = [
+                "https://mas.${_domain_base}/upstream/callback/01KJKAM7BDPSYJDN4YXSZQYX1H"
+              ];
+              scopes = [
+                "openid"
+                "groups"
+                "profile"
+                "email"
+                "offline_access"
+              ];
+              grant_types = [
+                "refresh_token"
+                "authorization_code"
+              ];
+              response_types = [ "code" ];
+            }
+          ];
+        };
       };
     };
   };

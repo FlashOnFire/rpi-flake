@@ -5,8 +5,8 @@ let
       "synapse-signingKey"
     ];
     extra = {
-      owner = "synapse";
-      group = "synapse";
+      owner = "matrix-synapse";
+      group = "matrix-synapse";
     };
   };
 in
@@ -37,8 +37,8 @@ in
       database = {
         name = "psycopg2";
         args = {
-          database = "synapse";
-          user = "synapse";
+          database = "matrix-synapse";
+          user = "matrix-synapse";
         };
       };
 
@@ -72,7 +72,7 @@ in
 
       postgres.initialScripts = [
         ''
-          CREATE DATABASE "synapse" WITH OWNER "synapse"
+          CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
             TEMPLATE template0
             LC_COLLATE = "C"
             LC_CTYPE
@@ -82,7 +82,7 @@ in
       services.postgresql = {
         ensureUsers = [
           {
-            name = "synapse";
+            name = "matrix-synapse";
           }
         ];
       };

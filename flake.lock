@@ -192,6 +192,18 @@
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/9da532b0fb2e56c07d19fc2031ed8475ea62a208.patch"
       }
     },
+    "nixpkgs-patch-fix-mas-cross-compile": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-LwWEIiKlRRU5FjJ8K0p2T1wuml6XGvpuXwbK5hyDgpY=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch"
+      }
+    },
     "nixpkgs-patch-fix-raspi-module-renames": {
       "flake": false,
       "locked": {
@@ -227,6 +239,7 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-fix-git-cross-compile": "nixpkgs-patch-fix-git-cross-compile",
+        "nixpkgs-patch-fix-mas-cross-compile": "nixpkgs-patch-fix-mas-cross-compile",
         "nixpkgs-patch-fix-raspi-module-renames": "nixpkgs-patch-fix-raspi-module-renames",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"

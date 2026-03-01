@@ -2,8 +2,8 @@
   config,
   lib,
   pkgs,
-  base_domain_name,
   _utils,
+  _domain_base,
   ...
 }:
 let
@@ -17,10 +17,17 @@ let
     };
   };
 
-  dataDir = "/var/lib/matrix-authentication-service";
+  dataDir = "/storage/matrix-authentication-service";
   settingsFile = "${dataDir}/settings.yaml";
+
+  port = 8089;
+  port2 = 8083;
 in
 {
+  imports = [
+    secrets.generate
+  ];
+
   users = {
     groups.mas = { };
     users.mas = {
@@ -40,8 +47,9 @@ in
     requires = [ "postgresql.service" ];
     serviceConfig = {
       Restart = "on-failure";
-      EnvironmentFile = config.age.secrets.mas_config.path;
+      EnvironmentFile = secrets.get "mas-config";
       ExecStart = "${pkgs.matrix-authentication-service}/bin/mas-cli -c ${settingsFile} server";
+      # DynamicUser = true;
       User = "mas";
       Group = "mas";
       WorkingDirectory = "${dataDir}";
@@ -67,7 +75,7 @@ in
                       { name = "assets"; }
                     ];
                     binds = [
-                      { address = "[::]:${toString config.matrix.mas.port}"; }
+                      { address = "[::]:${toString port}"; }
                     ];
                     proxy_protocol = false;
                   }
@@ -79,7 +87,7 @@ in
                     binds = [
                       {
                         host = "localhost";
-                        port = config.matrix.mas.port2;
+                        port = port2;
                       }
                     ];
                     proxy_protocol = false;
@@ -93,8 +101,8 @@ in
                   "fd00::/8"
                   "::1/128"
                 ];
-                public_base = "https://${config.matrix.mas.domain}/";
-                issuer = "https://${base_domain_name}/";
+                public_base = "https://mas.${_domain_base}/";
+                issuer = "https://${_domain_base}/";
               };
               database = {
                 uri = "postgresql://mas@localhost/mas?host=/run/postgresql";
@@ -108,20 +116,16 @@ in
                 encryption = "$encryption";
                 keys = [
                   {
-                    kid = "ERoVDasMln";
-                    key = "$ERoVDasMln";
+                    key = "$key1";
                   }
                   {
-                    kid = "Say3DRq9iv";
-                    key = "$Say3DRq9iv";
+                    key = "$key2";
                   }
                   {
-                    kid = "g38dzwm5Ug";
-                    key = "$g38dzwm5Ug";
+                    key = "$key3";
                   }
                   {
-                    kid = "vIIeN3Ao1A";
-                    key = "$vIIeN3Ao1A";
+                    key = "$key4";
                   }
                 ];
               };
@@ -129,8 +133,8 @@ in
                 enabled = false;
               };
               matrix = {
-                homeserver = base_domain_name;
-                endpoint = "http://[::1]:${toString config.matrix.port}/";
+                homeserver = _domain_base;
+                endpoint = "http://[::1]:${toString port}/";
                 secret = "$matrix_secret";
               };
 
@@ -145,10 +149,10 @@ in
               upstream_oauth2 = {
                 providers = [
                   {
-                    id = "01H8PKNWKKRPCBW4YGH1RWV279";
+                    id = "01KJKAM7BDPSYJDN4YXSZQYX1H";
                     human_name = "Authelia";
-                    issuer = "https://${config.authelia.domain}";
-                    client_id = "K4XV9roQMaYIgP8X5dE1iSTEWQlIPSQG64m9OCIdzQgWkEMtYyoOsABGVbMPji-bcuEiBTUI";
+                    issuer = "https://auth.${_domain_base}";
+                    client_id = "IkhbiLxn.MQVKQeBFAlvMfu3-RdUMScM0PcnpDSyjSTGwjs0VGveq_yii.GOavtNyoZYC9U6";
                     client_secret = "$provider_client_secret";
                     token_endpoint_auth_method = "client_secret_basic";
                     scope = "openid profile email";

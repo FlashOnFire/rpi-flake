@@ -21,6 +21,6 @@ mkSecret [
   "authelia-oauth2-pub"
   "authelia-oauth2-hmac"
   "smtp"
-  "synapse-extraConfig"
   "synapse-signingKey"
+  "mas-config"
 ]
