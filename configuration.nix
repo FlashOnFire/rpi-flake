@@ -47,6 +47,21 @@
 
   networking.hostName = "lithium";
 
+  networking.hosts = {
+    "127.0.0.1" = [
+      "lithium.ovh"
+      "auth.lithium.ovh"
+      "mas.lithium.ovh"
+      "matrix.lithium.ovh"
+    ];
+    "::1" = [
+      "lithium.ovh"
+      "auth.lithium.ovh"
+      "mas.lithium.ovh"
+      "matrix.lithium.ovh"
+    ];
+  };
+
   # This is mostly portions of safe network configuration defaults that
   # nixos-images and srvos provide
 

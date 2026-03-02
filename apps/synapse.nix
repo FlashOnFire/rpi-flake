@@ -3,6 +3,7 @@ let
   secrets = _utils.setupSecrets config {
     secrets = [
       "synapse-signingKey"
+      "synapse-masSharedSecret"
     ];
     extra = {
       owner = "matrix-synapse";
@@ -15,14 +16,20 @@ in
     secrets.generate
   ];
 
+  systemd.tmpfiles.rules = [
+    "d /storage/synapse-media 0750 matrix-synapse matrix-synapse - -"
+    "d /storage/matrix-synapse 0750 matrix-synapse matrix-synapse - -"
+  ];
+
   services.matrix-synapse = {
     enable = true;
     extras = [
       "systemd"
       "url-preview"
+      "oidc"
     ];
 
-    dataDir = "/storage/synapse";
+    dataDir = "/storage/matrix-synapse";
 
     settings = {
       server_name = "lithium.ovh";
@@ -44,8 +51,8 @@ in
 
       listeners = [
         {
-          bind_addresses = [ "0.0.0.0" ];
-          port = 8009;
+          bind_addresses = [ "::1" ];
+          port = 8008;
           x_forwarded = true;
           tls = false;
           resources = [
@@ -61,6 +68,17 @@ in
         }
       ];
 
+      experimental_features = {
+        msc3266_enabled = true;
+        msc4222_enabled = true;
+      };
+
+      matrix_authentication_service = {
+        enabled = true;
+        endpoint = "http://localhost:8089";
+        secret_path = secrets.get "synapse-masSharedSecret";
+      };
+
       trusted_key_servers = [
         {
           server_name = "matrix.org";
@@ -69,23 +87,17 @@ in
           };
         }
       ];
-
-      postgres.initialScripts = [
-        ''
-          CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-            TEMPLATE template0
-            LC_COLLATE = "C"
-            LC_CTYPE
-             = "C";''
-      ];
-
-      services.postgresql = {
-        ensureUsers = [
-          {
-            name = "matrix-synapse";
-          }
-        ];
-      };
     };
   };
+
+  postgres.initialScripts = [
+    ''
+      CREATE USER "matrix-synapse";
+      CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+        TEMPLATE template0
+        LC_COLLATE = "C"
+        LC_CTYPE
+         = "C";
+    ''
+  ];
 }

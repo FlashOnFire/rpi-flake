@@ -11,22 +11,28 @@
       default = [ ];
     };
   };
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_18;
+  config = {
+    systemd.tmpfiles.rules = [
+      "d /storage/postgresql 0750 postgres postgres - -"
+    ];
 
-    settings.port = 5432;
-    enableTCPIP = true;
+    services.postgresql = {
+      enable = true;
+      package = pkgs.postgresql_18;
 
-    dataDir = "/storage/postgresql";
+      settings.port = 5432;
+      enableTCPIP = true;
 
-    # local synapse synapse scram-sha-256
-    authentication = ''
-      local all all peer
-    '';
+      dataDir = "/storage/postgresql";
 
-    initialScript = pkgs.writeText "init-script.sql" (
-      lib.concatStrings (config.postgres.initialScripts or [ ])
-    );
+      # local synapse synapse scram-sha-256
+      authentication = ''
+        local all all peer
+      '';
+
+      initialScript = pkgs.writeText "init-script.sql" (
+        lib.concatStrings (config.postgres.initialScripts or [ ])
+      );
+    };
   };
 }

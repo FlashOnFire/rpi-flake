@@ -44,8 +44,8 @@ in
       secrets = {
         storageEncryptionKeyFile = secrets.get "authelia-storage";
         jwtSecretFile = secrets.get "authelia-jwt";
-        # oidcIssuerPrivateKeyFile = secrets.get "authelia-oauth2";
-        # oidcHmacSecretFile = secrets.get "authelia-oauth2-hmac";
+        oidcIssuerPrivateKeyFile = secrets.get "authelia-oauth2";
+        oidcHmacSecretFile = secrets.get "authelia-oauth2-hmac";
       };
       settings = {
         theme = "auto";
@@ -149,7 +149,6 @@ in
         };
 
         identity_providers.oidc = {
-          # enable to make it working so using settingsFiles (look above)
           # jwks = [
           #   {
           #     key_id = "main";

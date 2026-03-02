@@ -15,21 +15,26 @@
     '';
 
     virtualHosts."https://${_domain_base}".extraConfig = ''
-      header /.well-known/matrix/* Content-Type application/json
-      header /.well-known/matrix/* Access-Control-Allow-Origin *
-      respond /.well-known/matrix/server `{"m.server": "matrix.lithium.ovh:443"}`
-      respond /.well-known/matrix/client `{"m.homeserver":{"base_url":"https://matrix.lithium.ovh"},"m.identity_server":{"base_url":"https://mas.lithium.ovh"}}`
-
-      forward_auth unix//run/authelia/authelia.sock {
-        uri /api/authz/forward-auth
-        ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
-        ## this is configured in the Session Cookies section of the Authelia configuration.
-        # uri /api/authz/forward-auth?authelia_url=https://auth.example.com/
-        copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+      handle /.well-known/matrix/* {
+        header /.well-known/matrix/* Content-Type application/json
+        header /.well-known/matrix/* Access-Control-Allow-Origin *
+        respond /.well-known/matrix/server `{"m.server": "matrix.lithium.ovh:443"}`
+        # respond /.well-known/matrix/client `{"m.homeserver":{"base_url":"https://matrix.lithium.ovh"},"m.identity_server":{"base_url":"https://mas.lithium.ovh"}}`
+        respond /.well-known/matrix/client `{"m.homeserver":{"base_url":"https://matrix.lithium.ovh"},"org.matrix.msc2965.authentication":{"issuer":"https://lithium.ovh/","account":"https://mas.lithium.ovh/account"}}`
       }
 
-      # header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
-      respond "hello world"
+      handle {
+        forward_auth unix//run/authelia/authelia.sock {
+          uri /api/authz/forward-auth
+          ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
+          ## this is configured in the Session Cookies section of the Authelia configuration.
+          # uri /api/authz/forward-auth?authelia_url=https://auth.example.com/
+          copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+        }
+
+        # header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
+        respond "hello world"
+      }
     '';
 
     virtualHosts."https://auth.${_domain_base}".extraConfig = ''
@@ -68,11 +73,6 @@
     '';
 
     virtualHosts."https://matrix.${_domain_base}".extraConfig = ''
-      reverse_proxy /_matrix/* localhost:8008
-      reverse_proxy /_synapse/client/* localhost:8008
-    '';
-
-    virtualHosts."https://mas.${_domain_base}".extraConfig = ''
       # Forward login/logout/refresh to the auth service (MAS)
       @mas path_regexp ^/_matrix/client/(.*)/(login|logout|refresh)
       reverse_proxy @mas localhost:8089
@@ -90,6 +90,10 @@
       request_body {
           max_size 50MB
       }
+    '';
+
+    virtualHosts."https://mas.${_domain_base}".extraConfig = ''
+      reverse_proxy localhost:8089
     '';
 
     virtualHosts."${_domain_base}:8448".extraConfig = ''

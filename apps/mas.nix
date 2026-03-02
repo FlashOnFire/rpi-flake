@@ -28,6 +28,14 @@ in
     secrets.generate
   ];
 
+  services.postgresql.ensureUsers = [
+    {
+      name = "mas";
+      ensureDBOwnership = true;
+    }
+  ];
+  services.postgresql.ensureDatabases = [ "mas" ];
+
   users = {
     groups.mas = { };
     users.mas = {
@@ -134,7 +142,7 @@ in
               };
               matrix = {
                 homeserver = _domain_base;
-                endpoint = "http://[::1]:${toString port}/";
+                endpoint = "http://[::1]:8008/";
                 secret = "$matrix_secret";
               };
 
@@ -157,6 +165,7 @@ in
                     token_endpoint_auth_method = "client_secret_basic";
                     scope = "openid profile email";
                     discovery_mode = "insecure";
+                    fetch_userinfo = true;
                     claims_imports = {
                       localpart = {
                         action = "require";

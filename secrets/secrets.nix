@@ -18,9 +18,9 @@ mkSecret [
   "authelia-jwt"
   "authelia-storage"
   "authelia-oauth2"
-  "authelia-oauth2-pub"
   "authelia-oauth2-hmac"
   "smtp"
   "synapse-signingKey"
+  "synapse-masSharedSecret"
   "mas-config"
 ]
