@@ -151,16 +151,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1771867771,
-        "narHash": "sha256-v4UIlzztrAll/NPjsi0xWa5+fWcI9A4p8MLonL9EUeg=",
+        "lastModified": 1771952074,
+        "narHash": "sha256-E4YGCua2H3LcWI0kY8dksiQCwwXMO/q4noLwhbQp6Bc=",
         "owner": "nvmd",
         "repo": "nixos-raspberrypi",
-        "rev": "6b30596bea9047a7cbb55cb58e6f8a3efa4012e2",
+        "rev": "05502b5099aba4df458acb46d0e0487d51318400",
         "type": "github"
       },
       "original": {
         "owner": "nvmd",
-        "ref": "main",
+        "ref": "develop",
         "repo": "nixos-raspberrypi",
         "type": "github"
       }
@@ -204,18 +204,6 @@
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch"
       }
     },
-    "nixpkgs-patch-fix-raspi-module-renames": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-Aq8LhYkG36rDeHR32AJnjBKTsifnEKAST2vcIP81Gqk=",
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/pull/398456.diff"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/pull/398456.diff"
-      }
-    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1769207991,
@@ -240,7 +228,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-fix-git-cross-compile": "nixpkgs-patch-fix-git-cross-compile",
         "nixpkgs-patch-fix-mas-cross-compile": "nixpkgs-patch-fix-mas-cross-compile",
-        "nixpkgs-patch-fix-raspi-module-renames": "nixpkgs-patch-fix-raspi-module-renames",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }

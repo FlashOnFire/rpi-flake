@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi/main";
+      url = "github:nvmd/nixos-raspberrypi/develop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
@@ -17,10 +17,10 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs-patch-fix-raspi-module-renames = {
-      url = "https://github.com/NixOS/nixpkgs/pull/398456.diff";
-      flake = false;
-    };
+    # nixpkgs-patch-fix-raspi-module-renames = {
+    #   url = "https://github.com/NixOS/nixpkgs/pull/398456.diff";
+    #   flake = false;
+    # };
 
     nixpkgs-patch-fix-git-cross-compile = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/9da532b0fb2e56c07d19fc2031ed8475ea62a208.patch";
