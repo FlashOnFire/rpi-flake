@@ -32,6 +32,46 @@
       flake = false;
     };
 
+    nixpkgs-patch-fix-python-orjson-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-python-pip-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/61f8a36ad0895dcb28404ca61b0860fe45dfc1b8.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-python-simsimd-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/1c796cdba382e0ca403f81b11200aeca9208ad43.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-python-onnx-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/b36f8aca240898bd380b9a45e1b0d9310e3b676b.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-python-stringzilla-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/b5e6ecedc713845a252eb538823117aa8bd24b99.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-python-onnx-runtime-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/442f8246a789bb4a27a3be703e992aed5e210c8a.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-python-ml-dtypes-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/e513df4f09bae3baaf1f02c0704687bc77d65322.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-pgrx-extension-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/e3a4b0f1917108751fa7f92dc98cf5c3c0229707.patch";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {

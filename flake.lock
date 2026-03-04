@@ -204,6 +204,90 @@
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch"
       }
     },
+    "nixpkgs-patch-fix-python-ml-dtypes-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-RtLSceqWo1O1ZiP11LjreqiE5k47+MNpZew/Qga5NHU=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/e513df4f09bae3baaf1f02c0704687bc77d65322.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/e513df4f09bae3baaf1f02c0704687bc77d65322.patch"
+      }
+    },
+    "nixpkgs-patch-fix-python-onnx-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-MphpY21HVQfgsRaLHrSJEE6NQb/4dFKFqF1p+i69pFI=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/b36f8aca240898bd380b9a45e1b0d9310e3b676b.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/b36f8aca240898bd380b9a45e1b0d9310e3b676b.patch"
+      }
+    },
+    "nixpkgs-patch-fix-python-onnx-runtime-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-S/2P6HQMG8olPrxHziV7+q1lAAPYLUsvLTneXw56eg8=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/442f8246a789bb4a27a3be703e992aed5e210c8a.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/442f8246a789bb4a27a3be703e992aed5e210c8a.patch"
+      }
+    },
+    "nixpkgs-patch-fix-python-orjson-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-xBNKmzuuK/sUtOYfcP3x9NlfxEs4oDjv2yGvZuEkHNQ=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch"
+      }
+    },
+    "nixpkgs-patch-fix-python-pip-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-6UtrcCx3EgTgBbpyKCxv4WaU9e3JJ1akkEM2Odi8ZXA=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/61f8a36ad0895dcb28404ca61b0860fe45dfc1b8.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/61f8a36ad0895dcb28404ca61b0860fe45dfc1b8.patch"
+      }
+    },
+    "nixpkgs-patch-fix-python-simsimd-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-0ieg2J0M5CZ7lirF32idwWSjScwu4GDBZTC5ki9trYs=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/1c796cdba382e0ca403f81b11200aeca9208ad43.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/1c796cdba382e0ca403f81b11200aeca9208ad43.patch"
+      }
+    },
+    "nixpkgs-patch-fix-python-stringzilla-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-eWKr988SuWzmmQsf67ZdqUAJJex40bq825OLOYgjp18=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/b5e6ecedc713845a252eb538823117aa8bd24b99.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/b5e6ecedc713845a252eb538823117aa8bd24b99.patch"
+      }
+    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1772571520,
@@ -228,6 +312,13 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-fix-cinny-cross": "nixpkgs-patch-fix-cinny-cross",
         "nixpkgs-patch-fix-mas-cross-compile": "nixpkgs-patch-fix-mas-cross-compile",
+        "nixpkgs-patch-fix-python-ml-dtypes-cross": "nixpkgs-patch-fix-python-ml-dtypes-cross",
+        "nixpkgs-patch-fix-python-onnx-cross": "nixpkgs-patch-fix-python-onnx-cross",
+        "nixpkgs-patch-fix-python-onnx-runtime-cross": "nixpkgs-patch-fix-python-onnx-runtime-cross",
+        "nixpkgs-patch-fix-python-orjson-cross": "nixpkgs-patch-fix-python-orjson-cross",
+        "nixpkgs-patch-fix-python-pip-cross": "nixpkgs-patch-fix-python-pip-cross",
+        "nixpkgs-patch-fix-python-simsimd-cross": "nixpkgs-patch-fix-python-simsimd-cross",
+        "nixpkgs-patch-fix-python-stringzilla-cross": "nixpkgs-patch-fix-python-stringzilla-cross",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }
