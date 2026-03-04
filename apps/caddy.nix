@@ -110,6 +110,10 @@
       reverse_proxy /_synapse/client/* localhost:8008
     '';
 
+    virtualHosts."https://git.${_domain_base}".extraConfig = ''
+      reverse_proxy :3004
+    '';
+
     # virtualHosts."https://vaultwarden.${_domain_base}".extraConfig = ''
     #   encode zstd gzip
     #

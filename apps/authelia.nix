@@ -2,7 +2,7 @@
   config,
   _utils,
   _domain_base,
-  _smtp_server,
+  _smtp_address,
   ...
 }:
 let
@@ -92,7 +92,7 @@ in
         notifier = {
           disable_startup_check = true;
           smtp = {
-            address = "smtp://smtp.mail.ovh.net:587";
+            address = "smtp://${_smtp_address}:587";
             timeout = "15s";
             username = "server@${_domain_base}";
             sender = "Authelia <server@${_domain_base}>";
@@ -160,8 +160,8 @@ in
           clients = [
             {
               client_name = "Matrix";
-              client_secret = "$pbkdf2-sha512$310000$XTfwKsUrL8t49jUidXws3A$o3B8DWtgQkSdYje8HKmFIqY/luftDyTSgPD7kHATJrhVDoq40.47iIvwIooNVA3jguKuf7zQ21PtA.AseGQUNA";
               client_id = "IkhbiLxn.MQVKQeBFAlvMfu3-RdUMScM0PcnpDSyjSTGwjs0VGveq_yii.GOavtNyoZYC9U6";
+              client_secret = "$pbkdf2-sha512$310000$XTfwKsUrL8t49jUidXws3A$o3B8DWtgQkSdYje8HKmFIqY/luftDyTSgPD7kHATJrhVDoq40.47iIvwIooNVA3jguKuf7zQ21PtA.AseGQUNA";
               public = false;
               authorization_policy = "one_factor";
               redirect_uris = [
@@ -179,6 +179,26 @@ in
                 "authorization_code"
               ];
               response_types = [ "code" ];
+            }
+            {
+              client_id = "SvETHomqH_6hOoZVLqZhKABkrkEMCJmltIOV8At-dznHOZyPDeG8stGCN_M5R0Ipy1wN2cBO";
+              client_name = "forgejo";
+              client_secret = "$pbkdf2-sha512$310000$MAAzIWeSBuNk/3m5tNrWEQ$g/b7TvzLzswZ5wK3nYwXMDBZmQ4bVp18cRxWc4Z/.oKm5S8I2lf3MxV4oNmb5.w4UQVY854tidWxeV27boLDZg";
+              public = false;
+              authorization_policy = "one_factor";
+              # require_pkce = true;
+              # pkce_challenge_method = "S256";
+              redirect_uris = [ "https://git.${_domain_base}/user/oauth2/authelia/callback" ];
+              scopes = [
+                "openid"
+                "email"
+                "profile"
+                "groups"
+              ];
+              grant_types = [ "authorization_code" ];
+              access_token_signed_response_alg = "none";
+              userinfo_signed_response_alg = "none";
+              token_endpoint_auth_method = "client_secret_basic";
             }
           ];
         };

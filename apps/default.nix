@@ -9,6 +9,7 @@
     ./synapse.nix
     ./mas.nix
     ./postgres.nix
+    ./forgejo.nix
     # ./vaultwarden.nix
     # ./onlyoffice.nix
   ];
