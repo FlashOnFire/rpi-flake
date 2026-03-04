@@ -26,6 +26,16 @@ in
     secrets.generate
   ];
 
+  services.postgresql = {
+    ensureDatabases = [ "authelia-main" ];
+    ensureUsers = [
+      {
+        name = "authelia-main";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
+
   systemd.services."authelia-main" = {
     environment = {
       # needed to set the secrets using agenix see: https://www.authelia.com/configuration/methods/files/#file-filters
@@ -87,7 +97,14 @@ in
           keep_stdout = true;
           level = "info";
         };
-        storage.local.path = "/tmp/db.sqlite3";
+
+        storage = {
+          postgres = {
+            address = "/run/postgresql";
+            database = "authelia-main";
+            username = "authelia-main";
+          };
+        };
 
         notifier = {
           disable_startup_check = true;
@@ -149,14 +166,6 @@ in
         };
 
         identity_providers.oidc = {
-          # jwks = [
-          #   {
-          #     key_id = "main";
-          #     key = ''{{ secret "${
-          #       config.age.secrets."authelia/oAuth2PrivateKey".path
-          #     }" | mindent 10 "|" | msquote }}'';
-          #   }
-          # ];
           clients = [
             {
               client_name = "Matrix";
