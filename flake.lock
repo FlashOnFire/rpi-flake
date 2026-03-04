@@ -183,7 +183,7 @@
     "nixpkgs-patch-fix-cinny-cross": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-BW+VYcGPXnKqLAdE+o4zdanfkf03LfLZSiwzUfPsd34=",
+        "narHash": "sha256-lbhxxu824sHD5Y3MG7+kMvg64R1nwzyFJtCxmVgn/Sg=",
         "type": "file",
         "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/496178.patch"
       },
