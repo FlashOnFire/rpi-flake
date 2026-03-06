@@ -21,4 +21,10 @@
   boot.loader.raspberry-pi.firmwarePackage = pkgs.raspberrypifw;
 
   boot.loader.raspberry-pi.bootloader = "kernel";
+
+  boot.kernelParams = [
+    "nvme_core.default_ps_max_latency_us=0"
+    "pcie_aspm=off"
+    "nvme.max_host_mem_size_mb=64"
+  ];
 }

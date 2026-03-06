@@ -34,15 +34,20 @@
           enable = true;
           value = "on";
         };
-        # PCIe Gen 3.0
-        # https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie-gen-3-0
-        pciex1_gen = {
-          enable = true;
-          value = "3";
-        };
+        # # PCIe Gen 3.0
+        # # https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie-gen-3-0
+        # pciex1_gen = {
+        #   enable = true;
+        #   value = "3";
+        # };
 
       };
 
+      dt-overlays.vc4-kms-v3d = {
+        enable = true;
+        params.cma-256.enable = true;
+      };
     };
+
   };
 }
