@@ -192,6 +192,30 @@
         "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/496178.patch"
       }
     },
+    "nixpkgs-patch-fix-gnutls-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-JWptUHwQln8leb+9fC21uU2fW3sGmed/jdCSSSh9Wrk=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/0671850bf537baf17376d30c3605016bde9b385d.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/0671850bf537baf17376d30c3605016bde9b385d.patch"
+      }
+    },
+    "nixpkgs-patch-fix-immich-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-8NOM3ET06MYaseUsfcfnWoXiKPnYI1pbwAmRLMMFcZk=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/03820b7fbe5fbec9387860d090170a264e1c5dc2.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/03820b7fbe5fbec9387860d090170a264e1c5dc2.patch"
+      }
+    },
     "nixpkgs-patch-fix-mas-cross-compile": {
       "flake": false,
       "locked": {
@@ -202,6 +226,18 @@
       "original": {
         "type": "file",
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch"
+      }
+    },
+    "nixpkgs-patch-fix-opencv-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-sw2RtuD6YpwXGx3BH6eMffiSnLSI87OkXytutQh5KLo=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/2b58bc2e3e9125add7807b0e51251a123ea1787d.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/2b58bc2e3e9125add7807b0e51251a123ea1787d.patch"
       }
     },
     "nixpkgs-patch-fix-pgrx-extension-cross": {
@@ -300,6 +336,18 @@
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/b5e6ecedc713845a252eb538823117aa8bd24b99.patch"
       }
     },
+    "nixpkgs-patch-fix-vips-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-fKMWk0gRLx6JT3qsQo53ssQX3U9mFWSqYtAOp9EonMw=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/70e6a1672dbd60f155f5af4d38a836622afe6f03.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/70e6a1672dbd60f155f5af4d38a836622afe6f03.patch"
+      }
+    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1772571520,
@@ -323,7 +371,10 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-fix-cinny-cross": "nixpkgs-patch-fix-cinny-cross",
+        "nixpkgs-patch-fix-gnutls-cross": "nixpkgs-patch-fix-gnutls-cross",
+        "nixpkgs-patch-fix-immich-cross": "nixpkgs-patch-fix-immich-cross",
         "nixpkgs-patch-fix-mas-cross-compile": "nixpkgs-patch-fix-mas-cross-compile",
+        "nixpkgs-patch-fix-opencv-cross": "nixpkgs-patch-fix-opencv-cross",
         "nixpkgs-patch-fix-pgrx-extension-cross": "nixpkgs-patch-fix-pgrx-extension-cross",
         "nixpkgs-patch-fix-python-ml-dtypes-cross": "nixpkgs-patch-fix-python-ml-dtypes-cross",
         "nixpkgs-patch-fix-python-onnx-cross": "nixpkgs-patch-fix-python-onnx-cross",
@@ -332,6 +383,7 @@
         "nixpkgs-patch-fix-python-pip-cross": "nixpkgs-patch-fix-python-pip-cross",
         "nixpkgs-patch-fix-python-simsimd-cross": "nixpkgs-patch-fix-python-simsimd-cross",
         "nixpkgs-patch-fix-python-stringzilla-cross": "nixpkgs-patch-fix-python-stringzilla-cross",
+        "nixpkgs-patch-fix-vips-cross": "nixpkgs-patch-fix-vips-cross",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }

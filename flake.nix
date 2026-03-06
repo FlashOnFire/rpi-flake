@@ -72,6 +72,26 @@
       flake = false;
     };
 
+    nixpkgs-patch-fix-vips-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/70e6a1672dbd60f155f5af4d38a836622afe6f03.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-gnutls-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/0671850bf537baf17376d30c3605016bde9b385d.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-immich-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/03820b7fbe5fbec9387860d090170a264e1c5dc2.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-opencv-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/2b58bc2e3e9125add7807b0e51251a123ea1787d.patch";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -109,15 +129,6 @@
               {
                 nixpkgs.buildPlatform = "x86_64-linux";
                 nixpkgs.hostPlatform = "aarch64-linux";
-                nixpkgs.overlays = [
-                  (final: prev: {
-                    gnutls = prev.gnutls.overrideAttrs (prevAttrs: {
-                      postPatch = prevAttrs.postPatch + ''
-                        touch doc/stamp_error_codes
-                      '';
-                    });
-                  })
-                ];
               }
             )
           ];
