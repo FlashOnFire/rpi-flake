@@ -54,7 +54,7 @@
         copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
       }
 
-      reverse_proxy :3003 {
+      reverse_proxy :3005 {
         header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
       }
     '';

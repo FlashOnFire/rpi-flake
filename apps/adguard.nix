@@ -2,7 +2,7 @@
 {
   services.adguardhome = {
     enable = true;
-    port = 3003;
+    port = 3005;
     settings = {
       dns = {
         upstream_dns = [
