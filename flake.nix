@@ -27,11 +27,6 @@
       flake = false;
     };
 
-    nixpkgs-patch-fix-cinny-cross = {
-      url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/496178.patch";
-      flake = false;
-    };
-
     nixpkgs-patch-fix-python-orjson-cross = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch";
       flake = false;

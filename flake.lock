@@ -180,18 +180,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-patch-fix-cinny-cross": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-gP+opogEFP9c69upKdY62XSPgEFtawkCbjvmddU6Q9Q=",
-        "type": "file",
-        "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/496178.patch"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/496178.patch"
-      }
-    },
     "nixpkgs-patch-fix-gnutls-cross": {
       "flake": false,
       "locked": {
@@ -394,7 +382,6 @@
         "flake-utils": "flake-utils",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-patch-fix-cinny-cross": "nixpkgs-patch-fix-cinny-cross",
         "nixpkgs-patch-fix-gnutls-cross": "nixpkgs-patch-fix-gnutls-cross",
         "nixpkgs-patch-fix-immich-cross": "nixpkgs-patch-fix-immich-cross",
         "nixpkgs-patch-fix-kitty-cross": "nixpkgs-patch-fix-kitty-cross",
