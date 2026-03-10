@@ -135,6 +135,8 @@
     wget
     kitty.terminfo
     fio
+    ripgrep
+    fd
   ];
 
   services.openssh = {
