@@ -59,12 +59,19 @@ in
       };
       settings = {
         theme = "auto";
+
         webauthn = {
           disable = false;
           display_name = "Authelia";
           attestation_conveyance_preference = "indirect";
           timeout = "60s";
           selection_criteria.user_verification = "preferred";
+        };
+
+        regulation = {
+          max_retries = 3;
+          find_time = "2m";
+          ban_time = "5m";
         };
 
         totp = {
@@ -125,24 +132,23 @@ in
           default_policy = "deny";
           rules = [
             {
-              domain_regex = _domain_base;
+              domain = _domain_base;
+              policy = "two_factor";
+              subject = [ "group:owner" ];
+            }
+
+            {
+              domain = "auth.${_domain_base}";
               policy = "one_factor";
             }
 
             {
-              domain_regex = "auth.${_domain_base}";
-              policy = "one_factor";
-              # policy = "two_factor";
-            }
-
-            {
-              domain_regex = "dns.${_domain_base}";
-              policy = "one_factor";
-            }
-
-            {
-              domain_regex = "office.${_domain_base}";
-              policy = "one_factor";
+              domain = "dns.${_domain_base}";
+              policy = "two_factor";
+              subject = [
+                "group:owner"
+                "group:dns"
+              ];
             }
           ];
         };
@@ -168,11 +174,11 @@ in
         identity_providers.oidc = {
           clients = [
             {
-              client_name = "Matrix";
               client_id = "IkhbiLxn.MQVKQeBFAlvMfu3-RdUMScM0PcnpDSyjSTGwjs0VGveq_yii.GOavtNyoZYC9U6";
+              client_name = "matrix";
               client_secret = "$pbkdf2-sha512$310000$XTfwKsUrL8t49jUidXws3A$o3B8DWtgQkSdYje8HKmFIqY/luftDyTSgPD7kHATJrhVDoq40.47iIvwIooNVA3jguKuf7zQ21PtA.AseGQUNA";
               public = false;
-              authorization_policy = "one_factor";
+              authorization_policy = "two_factor";
               redirect_uris = [
                 "https://mas.${_domain_base}/upstream/callback/01KJKAM7BDPSYJDN4YXSZQYX1H"
               ];
@@ -194,7 +200,7 @@ in
               client_name = "forgejo";
               client_secret = "$pbkdf2-sha512$310000$MAAzIWeSBuNk/3m5tNrWEQ$g/b7TvzLzswZ5wK3nYwXMDBZmQ4bVp18cRxWc4Z/.oKm5S8I2lf3MxV4oNmb5.w4UQVY854tidWxeV27boLDZg";
               public = false;
-              authorization_policy = "one_factor";
+              authorization_policy = "two_factor";
               # require_pkce = true;
               # pkce_challenge_method = "S256";
               redirect_uris = [ "https://git.${_domain_base}/user/oauth2/authelia/callback" ];
@@ -214,7 +220,7 @@ in
               client_name = "immich";
               client_secret = "$pbkdf2-sha512$310000$t6weBk.826ThdRzBzIwbYg$.uvokVpsnWxBoL9RYSWOpRAmH282KdgL/Kn3gWtplzix86xfIBc6WKp9D8monyMW4bZ3Zn8a2m4qjiKhaN8xGg";
               public = false;
-              authorization_policy = "one_factor";
+              authorization_policy = "two_factor";
               require_pkce = false;
               pkce_challenge_method = "";
               redirect_uris = [
