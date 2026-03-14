@@ -151,11 +151,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773058846,
-        "narHash": "sha256-2XZbMzbNVyDVU0imZWUgCI+ixE0TazbmOrTCO3Y8M6E=",
+        "lastModified": 1773277501,
+        "narHash": "sha256-LoBRdiZhMEbG/Q4s1+6jp4FC60aqe80nxkxiWlrM4kk=",
         "owner": "nvmd",
         "repo": "nixos-raspberrypi",
-        "rev": "447fb46d88c1b06c2cecc0aeb583d554bc6a0931",
+        "rev": "4845905b171c3ccb61ce914d3fb4d6a0efc7c441",
         "type": "github"
       },
       "original": {
@@ -167,17 +167,41 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1772963539,
-        "narHash": "sha256-9jVDGZnvCckTGdYT53d/EfznygLskyLQXYwJLKMPsZs=",
+        "lastModified": 1773389992,
+        "narHash": "sha256-wvfdLLWJ2I9oEpDd9PfMA8osfIZicoQ5MT1jIwNs9Tk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9dcb002ca1690658be4a04645215baea8b95f31d",
+        "rev": "c06b4ae3d6599a672a6210b7021d699c351eebda",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
         "ref": "nixos-unstable",
         "type": "indirect"
+      }
+    },
+    "nixpkgs-patch-fix-kitty-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-XEgJqs5jfdGPEn3obTgdawfLaDgHBekrIis2Mcf9MwI=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch"
+      }
+    },
+    "nixpkgs-patch-fix-mas-cross-compile": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-LwWEIiKlRRU5FjJ8K0p2T1wuml6XGvpuXwbK5hyDgpY=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch"
       }
     },
     "nixpkgs-patcher": {
@@ -202,6 +226,8 @@
         "flake-utils": "flake-utils",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-patch-fix-kitty-cross": "nixpkgs-patch-fix-kitty-cross",
+        "nixpkgs-patch-fix-mas-cross-compile": "nixpkgs-patch-fix-mas-cross-compile",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }
