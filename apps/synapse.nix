@@ -40,6 +40,7 @@ in
 
       signing_key_path = secrets.get "synapse-signingKey";
       media_store_path = "/storage/synapse-media";
+      max_event_delay_duration = "24h";
 
       database = {
         name = "psycopg2";
@@ -69,8 +70,18 @@ in
       ];
 
       experimental_features = {
-        msc3266_enabled = true;
-        msc4222_enabled = true;
+        msc3266_enabled = true; # room summary api;
+        msc4222_enabled = true; # syncv2 state_after
+      };
+
+      # relax rate limits, required for element-call
+      rc_message = {
+        per_second = 0.5;
+        burst_count = 30;
+      };
+      rc_delayed_event_mgmt = {
+        per_second = 1;
+        burst_count = 20;
       };
 
       matrix_authentication_service = {

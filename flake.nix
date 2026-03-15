@@ -22,6 +22,11 @@
       flake = false;
     };
 
+    nixpkgs-patch-cinny-voice = {
+      url = "https://github.com/NixOS/nixpkgs/pull/498877.diff";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {

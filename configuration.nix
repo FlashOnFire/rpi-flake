@@ -175,8 +175,16 @@
   networking.firewall.allowedTCPPorts = [
     53
     443
+    7881
   ];
   networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedUDPPortRanges = [
+    # Matrix Livekit
+    {
+      from = 50000;
+      to = 51000;
+    }
+  ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

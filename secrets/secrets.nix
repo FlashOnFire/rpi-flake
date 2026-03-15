@@ -28,4 +28,5 @@ mkSecret [
   "forgejo-oidc-shared-secret"
   "vaultwarden-smtp"
   "immich-oidc-secret"
+  "matrix-livekit-key"
 ]

@@ -3,6 +3,26 @@
   _domain_base,
   ...
 }:
+let
+  matrix_server = {
+    "m.server" = "matrix.lithium.ovh:443";
+  };
+  matrix_client = {
+    "m.homeserver" = {
+      base_url = "https://matrix.lithium.ovh";
+    };
+    "org.matrix.msc2965.authentication" = {
+      issuer = "https://lithium.ovh/";
+      account = "https://mas.lithium.ovh/account";
+    };
+    "org.matrix.msc4143.rtc_foci" = [
+      {
+        type = "livekit";
+        livekit_service_url = "https://matrix-rtc.lithium.ovh/livekit/jwt";
+      }
+    ];
+  };
+in
 {
   users.users."caddy".extraGroups = [
     "authelia-main"
@@ -17,11 +37,13 @@
 
     virtualHosts."https://${_domain_base}".extraConfig = ''
       handle /.well-known/matrix/* {
-        header /.well-known/matrix/* Content-Type application/json
         header /.well-known/matrix/* Access-Control-Allow-Origin *
-        respond /.well-known/matrix/server `{"m.server": "matrix.lithium.ovh:443"}`
-        # respond /.well-known/matrix/client `{"m.homeserver":{"base_url":"https://matrix.lithium.ovh"},"m.identity_server":{"base_url":"https://mas.lithium.ovh"}}`
-        respond /.well-known/matrix/client `{"m.homeserver":{"base_url":"https://matrix.lithium.ovh"},"org.matrix.msc2965.authentication":{"issuer":"https://lithium.ovh/","account":"https://mas.lithium.ovh/account"}}`
+        header /.well-known/matrix/* Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        header /.well-known/matrix/* Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+        header /.well-known/matrix/* Content-Type application/json
+
+        respond /.well-known/matrix/server `${builtins.toJSON matrix_server}`
+        respond /.well-known/matrix/client `${builtins.toJSON matrix_client}`
       }
 
       handle {
@@ -70,6 +92,30 @@
 
       reverse_proxy :8000 {
         header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
+      }
+    '';
+
+    virtualHosts."https://matrix-rtc.${_domain_base}".extraConfig = ''
+      # Route for lk-jwt-service with livekit/jwt prefix
+      @jwt_service path /livekit/jwt/sfu/get /livekit/jwt/healthz
+      handle @jwt_service {
+        uri strip_prefix /livekit/jwt
+        reverse_proxy http://[::1]:8080 {
+          header_up Host {host}
+          header_up X-Forwarded-Server {host}
+          header_up X-Real-IP {remote_host}
+          header_up X-Forwarded-For {remote_host}
+        }
+      }
+
+      # Default route for livekit
+      handle {
+        reverse_proxy http://localhost:7880 {
+          header_up Host {host}
+          header_up X-Forwarded-Server {host}
+          header_up X-Real-IP {remote_host}
+          header_up X-Forwarded-For {remote_host}
+        }
       }
     '';
 
