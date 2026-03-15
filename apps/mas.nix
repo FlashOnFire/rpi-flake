@@ -110,7 +110,7 @@ in
                   "::1/128"
                 ];
                 public_base = "https://mas.${_domain_base}/";
-                issuer = "https://${_domain_base}/";
+                issuer = "https://auth.${_domain_base}/";
               };
               database = {
                 uri = "postgresql://mas@localhost/mas?host=/run/postgresql";

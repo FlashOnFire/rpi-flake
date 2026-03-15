@@ -12,7 +12,7 @@ let
       base_url = "https://matrix.lithium.ovh";
     };
     "org.matrix.msc2965.authentication" = {
-      issuer = "https://lithium.ovh/";
+      issuer = "https://auth.lithium.ovh/";
       account = "https://mas.lithium.ovh/account";
     };
     "org.matrix.msc4143.rtc_foci" = [
