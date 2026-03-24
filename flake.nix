@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi/develop"; # will use main when nixpkgs module rename patch is finally merged
+      url = "github:nvmd/nixos-raspberrypi/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
@@ -19,11 +19,6 @@
 
     nixpkgs-patch-fix-kitty-cross = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch";
-      flake = false;
-    };
-
-    nixpkgs-patch-cinny-voice = {
-      url = "https://github.com/NixOS/nixpkgs/pull/498877.diff";
       flake = false;
     };
 

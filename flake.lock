@@ -151,16 +151,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1773785246,
-        "narHash": "sha256-iTGqkQgTckLdI6Fc9HrRdZMIiF/jcoHk/N1O4zniUro=",
+        "lastModified": 1773704510,
+        "narHash": "sha256-Kq0WPitNekYzouyd8ROlZb63cpSg/+Ep2XxkV0YlABU=",
         "owner": "nvmd",
         "repo": "nixos-raspberrypi",
-        "rev": "7b3342b16d0cab024342766861ded14156682325",
+        "rev": "b5c77d506bed55250a4642ce6c8b395dd29ef06b",
         "type": "github"
       },
       "original": {
         "owner": "nvmd",
-        "ref": "develop",
+        "ref": "main",
         "repo": "nixos-raspberrypi",
         "type": "github"
       }
@@ -178,18 +178,6 @@
         "id": "nixpkgs",
         "ref": "nixos-unstable",
         "type": "indirect"
-      }
-    },
-    "nixpkgs-patch-cinny-voice": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-C80Oi9a9LYlZ+9J8lhP6EUM0/ltr/pVYHivztaHaSHc=",
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/pull/498877.diff"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/pull/498877.diff"
       }
     },
     "nixpkgs-patch-fix-kitty-cross": {
@@ -226,7 +214,6 @@
         "flake-utils": "flake-utils",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-patch-cinny-voice": "nixpkgs-patch-cinny-voice",
         "nixpkgs-patch-fix-kitty-cross": "nixpkgs-patch-fix-kitty-cross",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
