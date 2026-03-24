@@ -47,6 +47,7 @@
 
   boot.extraModprobeConfig = ''
     options zfs zfs_vdev_async_write_max_active=2
+    options zfs_vdev_async_read_max_active=2
     options zfs zfs_dirty_data_max=134217728
   '';
 
