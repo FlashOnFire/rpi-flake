@@ -36,7 +36,6 @@
       flake-parts,
       agenix,
       nixpkgs-patcher,
-      self,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -56,44 +55,35 @@
             agenix.nixosModules.default
 
             (
-              { config, lib, ... }:
+              { config, ... }:
               let
                 nativeAarch64Pkgs = import inputs.nixpkgs {
                   system = "aarch64-linux";
                   config = config.nixpkgs.config;
-
-                  overlays = [
-                    (final: prev: {
-                      valkey = prev.valkey.overrideAttrs (oldAttrs: {
-                        doCheck = false;
-                        doInstallCheck = false;
-                      });
-                      redis = prev.redis.overrideAttrs (oldAttrs: {
-                        doCheck = false;
-                      });
-                      postgresql_18 = prev.postgresql_18.overrideAttrs (old: {
-                        outputs = if builtins.elem "man" old.outputs then old.outputs else old.outputs ++ [ "man" ];
-                      });
-                      triton-llvm = prev.triton-llvm.overrideAttrs (oldAttrs: {
-                        doCheck = false;
-                        doInstallCheck = false;
-                      });
-                    })
-                  ];
                 };
               in
               {
                 nixpkgs.buildPlatform = "x86_64-linux";
-                nixpkgs.hostPlatform = "aarch64-linux";
+
                 nixpkgs.overlays = [
                   (final: prev: {
-                    # Force immich and iimmich-machine-learning to compile natively (avoids segfault on thumbnail gen)
+                    # Force immich and immich-machine-learning to compile natively (avoids segfault on thumbnail gen)
                     immich = nativeAarch64Pkgs.immich;
                     immich-machine-learning = nativeAarch64Pkgs.immich-machine-learning;
 
                     postgresql_18 = nativeAarch64Pkgs.postgresql_18;
                     postgresql18Packages = nativeAarch64Pkgs.postgresql18Packages;
                     postgresql = nativeAarch64Pkgs.postgresql;
+
+                    # Speed up compilation by leveraging cache
+                    kitty = nativeAarch64Pkgs.kitty;
+                    vaultwarden = nativeAarch64Pkgs.vaultwarden;
+                    forgejo = nativeAarch64Pkgs.forgejo;
+                    adguardhome = nativeAarch64Pkgs.adguardhome;
+                    cinny = nativeAarch64Pkgs.cinny;
+                    matrix-synapse = nativeAarch64Pkgs.matrix-synapse;
+                    fio = nativeAarch64Pkgs.fio;
+                    matrix-authentication-service = nativeAarch64Pkgs.matrix-authentication-service;
                   })
                 ];
               }
