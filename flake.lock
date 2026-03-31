@@ -180,6 +180,18 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-patch-fix-kitty-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-XEgJqs5jfdGPEn3obTgdawfLaDgHBekrIis2Mcf9MwI=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch"
+      }
+    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1772817589,
@@ -202,6 +214,7 @@
         "flake-utils": "flake-utils",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-patch-fix-kitty-cross": "nixpkgs-patch-fix-kitty-cross",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }

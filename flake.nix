@@ -71,9 +71,13 @@
                     immich = nativeAarch64Pkgs.immich;
                     immich-machine-learning = nativeAarch64Pkgs.immich-machine-learning;
 
+                    # Required when using native immich
                     postgresql_18 = nativeAarch64Pkgs.postgresql_18;
                     postgresql18Packages = nativeAarch64Pkgs.postgresql18Packages;
                     postgresql = nativeAarch64Pkgs.postgresql;
+
+                    # Atop does not cross compile
+                    atop = nativeAarch64Pkgs.atop;
 
                     # Speed up compilation by leveraging cache
                     kitty = nativeAarch64Pkgs.kitty;

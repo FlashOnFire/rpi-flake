@@ -155,6 +155,8 @@
     fd
   ];
 
+  programs.atop.enable = true;
+
   services.openssh = {
     enable = true;
     settings = {
