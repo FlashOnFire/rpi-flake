@@ -121,7 +121,6 @@ in
             username = "server@${_domain_base}";
             sender = "Authelia <server@${_domain_base}>";
             subject = "[Authelia] {title}";
-            startup_check_address = "guillaume.calderon1313@gmail.com";
             disable_require_tls = false;
             disable_starttls = false;
             disable_html_emails = false;
