@@ -13,6 +13,5 @@
     ./forgejo.nix
     ./vaultwarden.nix
     ./immich.nix
-    ./crowdsec.nix
   ];
 }
