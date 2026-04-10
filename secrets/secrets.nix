@@ -31,4 +31,6 @@ mkSecret [
   "matrix-livekit-key"
   "msmtp-smtp"
   "mas/encryption"
+  "mas/key_rsa_4096"
+  "mas/key_ec_p384"
 ]

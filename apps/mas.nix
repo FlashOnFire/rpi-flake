@@ -11,6 +11,8 @@ let
     secrets = [
       "mas-config"
       "mas/encryption"
+      "mas/key_rsa_4096"
+      "mas/key_ec_p384"
     ];
     extra = {
       owner = "mas";
@@ -122,11 +124,11 @@ in
                 keys = [
                   {
                     kid = "rsa-4096";
-                    key = "$key_rsa_4096";
+                    key_file = "${secrets.get "mas/key_rsa_4096"}";
                   }
                   {
                     kid = "ec-p384";
-                    key = "$key_ec_p384";
+                    key_file = "${secrets.get "mas/key_ec_p384"}";
                   }
                 ];
               };
