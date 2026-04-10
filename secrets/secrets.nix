@@ -30,4 +30,5 @@ mkSecret [
   "immich-oidc-secret"
   "matrix-livekit-key"
   "msmtp-smtp"
+  "mas/encryption"
 ]

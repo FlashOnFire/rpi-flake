@@ -10,6 +10,7 @@ let
   secrets = _utils.setupSecrets config {
     secrets = [
       "mas-config"
+      "mas/encryption"
     ];
     extra = {
       owner = "mas";
@@ -117,7 +118,7 @@ in
                 transport = "blackhole";
               };
               secrets = {
-                encryption = "$encryption";
+                encryption_file = "${secrets.get "mas/encryption"}";
                 keys = [
                   {
                     kid = "rsa-4096";
