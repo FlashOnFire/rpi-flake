@@ -56,6 +56,7 @@ in
         header {
           Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
           X-Content-Type-Options "nosniff"
+          # Doesn't work with FIDO2 Webauthn
           # X-Frame-Options "DENY"
           Referrer-Policy "strict-origin-when-cross-origin"
           Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' wss: https:;"
@@ -71,6 +72,13 @@ in
         forward_auth unix//run/authelia/authelia.sock {
           uri /api/authz/forward-auth
           copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+        }
+      }
+
+      (custom_reverse_proxy) {
+        reverse_proxy {args[:]} {
+          header_up X-Real-IP {remote_host}
+          header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
         }
       }
     '';
@@ -111,9 +119,7 @@ in
       import default_permissions
       import authelia_auth
 
-      reverse_proxy :3005 {
-        header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
-      }
+      import custom_reverse_proxy :3005
     '';
 
     virtualHosts."https://matrix-rtc.${_domain_base}".extraConfig = ''
@@ -124,16 +130,12 @@ in
       @jwt_service path /livekit/jwt/sfu/get /livekit/jwt/healthz
       handle @jwt_service {
         uri strip_prefix /livekit/jwt
-        reverse_proxy http://[::1]:8080 {
-          header_up X-Real-IP {remote_host}
-        }
+        import custom_reverse_proxy http://[::1]:8080
       }
 
       # Default route for livekit
       handle {
-        reverse_proxy http://localhost:7880 {
-          header_up X-Real-IP {remote_host}
-        }
+        import custom_reverse_proxy http://localhost:7880
       }
     '';
 
@@ -159,19 +161,19 @@ in
       @synapse path_regexp ^(/_matrix|/_synapse/client|/_synapse/mas)
 
       route {
-          # MAS routes (must be before @synapse since @synapse also matches /_matrix)
-          reverse_proxy @mas localhost:8089
+        # MAS routes (must be before @synapse since @synapse also matches /_matrix)
+        import custom_reverse_proxy @mas localhost:8089
 
-          # Synapse routes
-          reverse_proxy @synapse localhost:8008
+        # Synapse routes
+        import custom_reverse_proxy @synapse localhost:8008
 
-          handle {
-            redir https://cinny.${_domain_base}{uri} 302
-          }
+        handle {
+          redir https://cinny.${_domain_base}{uri} 302
+        }
       }
 
       request_body {
-          max_size 50MB
+        max_size 50MB
       }
     '';
 
@@ -179,38 +181,36 @@ in
       import common
       import default_permissions
 
-      reverse_proxy localhost:8089
+      import custom_reverse_proxy localhost:8089
     '';
 
     virtualHosts."${_domain_base}:8448".extraConfig = ''
       import common
       import default_permissions
 
-      reverse_proxy /_matrix/* localhost:8008
-      reverse_proxy /_synapse/client/* localhost:8008
+      import custom_reverse_proxy /_matrix/* localhost:8008
+      import custom_reverse_proxy /_synapse/client/* localhost:8008
     '';
 
     virtualHosts."https://git.${_domain_base}".extraConfig = ''
       import common
       header Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(self), sync-xhr=(), usb=(), xr-spatial-tracking=()"
 
-      reverse_proxy :3004
+      import custom_reverse_proxy :3004
     '';
 
     virtualHosts."https://vaultwarden.${_domain_base}".extraConfig = ''
       import common
       header Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(self), sync-xhr=(), usb=(), xr-spatial-tracking=()"
 
-      reverse_proxy [::1]:8222 {
-          header_up X-Real-IP {remote_host}
-      }
+      import custom_reverse_proxy [::1]:8222
     '';
 
     virtualHosts."https://immich.${_domain_base}".extraConfig = ''
       import common
       header Permissions-Policy "accelerometer=(), autoplay=(self), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(self), publickey-credentials-get=(), sync-xhr=(), usb=(), xr-spatial-tracking=()"
 
-      reverse_proxy :2283
+      import custom_reverse_proxy :2283
     '';
   };
 }
