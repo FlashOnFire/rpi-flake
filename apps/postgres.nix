@@ -24,7 +24,7 @@
 
       enableTCPIP = false;
 
-      settings.max_connections = 25;
+      settings.max_connections = 100;
 
       # local synapse synapse scram-sha-256
       authentication = ''
