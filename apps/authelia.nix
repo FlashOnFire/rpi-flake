@@ -70,8 +70,8 @@ in
 
         regulation = {
           max_retries = 3;
-          find_time = "2m";
-          ban_time = "5m";
+          find_time = "10m";
+          ban_time = "30m";
         };
 
         totp = {
@@ -114,7 +114,6 @@ in
         };
 
         notifier = {
-          disable_startup_check = true;
           smtp = {
             address = "smtp://${_smtp_address}:587";
             timeout = "15s";
@@ -166,6 +165,9 @@ in
               domain = _domain_base;
               authelia_url = "https://auth.${_domain_base}";
               default_redirection_url = "https://${_domain_base}";
+              inactivity = "30m";
+              expiration = "12h";
+              remember_me = "7d";
             }
           ];
         };
@@ -200,8 +202,8 @@ in
               client_secret = "$pbkdf2-sha512$310000$MAAzIWeSBuNk/3m5tNrWEQ$g/b7TvzLzswZ5wK3nYwXMDBZmQ4bVp18cRxWc4Z/.oKm5S8I2lf3MxV4oNmb5.w4UQVY854tidWxeV27boLDZg";
               public = false;
               authorization_policy = "two_factor";
-              # require_pkce = true;
-              # pkce_challenge_method = "S256";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
               redirect_uris = [ "https://git.${_domain_base}/user/oauth2/authelia/callback" ];
               scopes = [
                 "openid"
