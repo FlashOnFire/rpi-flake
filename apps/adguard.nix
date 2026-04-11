@@ -2,7 +2,10 @@
 {
   services.adguardhome = {
     enable = true;
+
     port = 3005;
+    mutableSettings = false;
+
     settings = {
       dns = {
         upstream_dns = [
@@ -14,6 +17,13 @@
           # "127.0.0.1:5335"
           "https://base.dns.mullvad.net/dns-query"
         ];
+        bootstrap_dns = [
+          "9.9.9.10"
+          "149.112.112.10"
+          "2620:fe::10"
+          "2620:fe::fe:10"
+        ];
+        enable_dnssec = true;
       };
       filtering = {
         protection_enabled = true;
