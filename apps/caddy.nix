@@ -212,5 +212,12 @@ in
 
       import custom_reverse_proxy :2283
     '';
+
+    virtualHosts."https://hass.${_domain_base}".extraConfig = ''
+      import common
+      import default_permissions
+
+      import custom_reverse_proxy localhost:8123
+    '';
   };
 }

@@ -14,5 +14,6 @@
     ./vaultwarden.nix
     ./immich.nix
     ./msmtp.nix
+    ./homeassistant.nix
   ];
 }

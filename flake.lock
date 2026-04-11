@@ -160,6 +160,30 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-patch-fix-kitty-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-XEgJqs5jfdGPEn3obTgdawfLaDgHBekrIis2Mcf9MwI=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch"
+      }
+    },
+    "nixpkgs-patch-fix-python-orjson-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-xBNKmzuuK/sUtOYfcP3x9NlfxEs4oDjv2yGvZuEkHNQ=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch"
+      }
+    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1772817589,
@@ -181,6 +205,8 @@
         "flake-parts": "flake-parts",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-patch-fix-kitty-cross": "nixpkgs-patch-fix-kitty-cross",
+        "nixpkgs-patch-fix-python-orjson-cross": "nixpkgs-patch-fix-python-orjson-cross",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }
