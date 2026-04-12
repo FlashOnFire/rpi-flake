@@ -18,11 +18,6 @@
       flake = false;
     };
 
-    nixpkgs-patch-fix-kitty-cross = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch";
-      flake = false;
-    };
-
     nixpkgs-patch-fix-python-librt-cross = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/5e9b1541b3075895b38d7dad4fe4a7748704e809.patch";
       flake = false;
