@@ -33,6 +33,11 @@
       flake = false;
     };
 
+    nixpkgs-patch-fix-python-hass-chip-wheels = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/dce5345bf29e.patch";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {

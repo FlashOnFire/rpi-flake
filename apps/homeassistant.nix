@@ -20,6 +20,14 @@
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
       default_config = { };
+
+      http = {
+        server_host = "::1";
+        trusted_proxies = [ "::1" ];
+        use_x_forwarded_for = true;
+      };
+
+      recorder.db_url = "postgresql://@/hass";
     };
   };
 
