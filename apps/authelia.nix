@@ -148,6 +148,15 @@ in
                 "group:dns"
               ];
             }
+
+            {
+              domain = "hass.${_domain_base}";
+              policy = "two_factor";
+              subject = [
+                "group:owner"
+                "group:hass"
+              ];
+            }
           ];
         };
 

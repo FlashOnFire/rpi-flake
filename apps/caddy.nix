@@ -115,9 +115,9 @@ in
     '';
 
     virtualHosts."https://dns.${_domain_base}".extraConfig = ''
+      import authelia_auth
       import common
       import default_permissions
-      import authelia_auth
 
       import custom_reverse_proxy :3005
     '';
@@ -214,6 +214,7 @@ in
     '';
 
     virtualHosts."https://hass.${_domain_base}".extraConfig = ''
+      import authelia_auth
       import common
       import default_permissions
 
