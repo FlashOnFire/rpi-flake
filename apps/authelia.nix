@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   _utils,
   _domain_base,
   _smtp_address,
@@ -90,6 +91,15 @@ in
 
         server = {
           address = "unix:///run/authelia/authelia.sock?umask=0117";
+
+          asset_path = "${pkgs.writeTextDir "locales/en/consent.json" (
+            builtins.toJSON {
+              scopes.immich_scope = "Access Immich role and storage quota";
+              claims.immich_role = "Immich Role (admin/user)";
+              claims.immich_quota = "Immich Storage Quota";
+            }
+          )}";
+
           endpoints = {
             authz = {
               forward-auth = {
@@ -165,6 +175,16 @@ in
           password_change.disable = true;
           file = {
             path = secrets.get "authelia-config";
+            extra_attributes = {
+              immich_role = {
+                multi_valued = false;
+                value_type = "string";
+              };
+              immich_quota = {
+                multi_valued = false;
+                value_type = "integer";
+              };
+            };
           };
         };
 
@@ -222,6 +242,29 @@ in
               ];
             };
           };
+
+          claims_policies = {
+            immich_policy = {
+              custom_claims = {
+                immich_role = {
+                  attribute = "immich_role";
+                };
+                immich_quota = {
+                  attribute = "immich_quota";
+                };
+              };
+            };
+          };
+
+          scopes = {
+            immich_scope = {
+              claims = [
+                "immich_role"
+                "immich_quota"
+              ];
+            };
+          };
+
           clients = [
             {
               client_id = "IkhbiLxn.MQVKQeBFAlvMfu3-RdUMScM0PcnpDSyjSTGwjs0VGveq_yii.GOavtNyoZYC9U6";
@@ -271,6 +314,7 @@ in
               client_secret = "$pbkdf2-sha512$310000$t6weBk.826ThdRzBzIwbYg$.uvokVpsnWxBoL9RYSWOpRAmH282KdgL/Kn3gWtplzix86xfIBc6WKp9D8monyMW4bZ3Zn8a2m4qjiKhaN8xGg";
               public = false;
               authorization_policy = "immich_policy";
+              claims_policy = "immich_policy";
               require_pkce = false;
               pkce_challenge_method = "";
               redirect_uris = [
@@ -282,6 +326,7 @@ in
                 "openid"
                 "email"
                 "profile"
+                "immich_scope"
               ];
               response_types = [ "code" ];
               grant_types = [ "authorization_code" ];
