@@ -41,7 +41,7 @@ let
                 { name = "assets"; }
               ];
               binds = [
-                { address = "[::]:${toString port}"; }
+                { address = "[::1]:${toString port}"; }
               ];
               proxy_protocol = false;
             }
