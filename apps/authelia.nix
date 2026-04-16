@@ -346,8 +346,8 @@ in
               public = false;
               authorization_policy = "immich_policy";
               claims_policy = "immich_policy";
-              require_pkce = false;
-              pkce_challenge_method = "";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
               redirect_uris = [
                 "https://immich.${_domain_base}/auth/login"
                 "https://immich.${_domain_base}/user-settings"
