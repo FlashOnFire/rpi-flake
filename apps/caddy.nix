@@ -235,5 +235,16 @@ in
 
       import custom_reverse_proxy localhost:8086
     '';
+
+    virtualHosts."https://office.lithium.ovh".extraConfig = ''
+      import authelia_auth
+      import common
+      import default_permissions
+
+      reverse_proxy http://[::1]:8000 {
+        # Required to circumvent bug of Onlyoffice loading mixed non-https content
+        header_up X-Forwarded-Proto https
+      }
+    '';
   };
 }

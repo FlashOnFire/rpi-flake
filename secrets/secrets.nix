@@ -38,4 +38,6 @@ mkSecret [
   "grafana/secret_key"
   "grafana/oidc_secret"
   "oxicloud/env"
+  "onlyoffice/jwt"
+  "onlyoffice/security_nonce"
 ]
