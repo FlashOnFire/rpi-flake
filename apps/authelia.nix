@@ -176,6 +176,15 @@ in
                 "group:grafana"
               ];
             }
+
+            {
+              domain = "cloud.${_domain_base}";
+              policy = "two_factor";
+              subject = [
+                "group:owner"
+                "group:cloud"
+              ];
+            }
           ];
         };
 
