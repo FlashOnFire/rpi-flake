@@ -175,7 +175,7 @@
     "nixpkgs-patch-add-oxicloud-package": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-qJjxIRWGXe5bej2t5zWb6vDI7ghzc/mqcOcWtnb1mnM=",
+        "narHash": "sha256-bmvY1r+1unnMCPssnNjuL/lLzEt3E1ma/soJlBkO52w=",
         "type": "file",
         "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/511236.patch"
       },
