@@ -160,15 +160,6 @@ in
             }
 
             {
-              domain = "hass.${_domain_base}";
-              policy = "two_factor";
-              subject = [
-                "group:owner"
-                "group:hass"
-              ];
-            }
-
-            {
               domain = "grafana.${_domain_base}";
               policy = "two_factor";
               subject = [

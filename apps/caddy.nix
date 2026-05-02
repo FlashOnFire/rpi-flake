@@ -214,7 +214,6 @@ in
     '';
 
     virtualHosts."https://hass.${_domain_base}".extraConfig = ''
-      import authelia_auth
       import common
       import default_permissions
 
@@ -238,8 +237,6 @@ in
 
     virtualHosts."https://thread.${_domain_base}".extraConfig = ''
       import authelia_auth
-      import common
-      import default_permissions
 
       import custom_reverse_proxy localhost:8082
     '';

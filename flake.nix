@@ -29,7 +29,7 @@
     };
 
     nixpkgs-patch-fix-python-hass-chip-wheels = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/dce5345bf29e.patch";
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/b8497adabdd2.patch";
       flake = false;
     };
 
@@ -40,6 +40,11 @@
 
     nixpkgs-patch-fix-oxicloud-cross = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/5ed331e4c2375a0f8362b40188cc498673e80141.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-matter-server = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/187b474c85e9.patch";
       flake = false;
     };
 

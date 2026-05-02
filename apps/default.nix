@@ -18,5 +18,6 @@
     ./grafana.nix
     ./oxicloud.nix
     ./otbr.nix
+    ./matter.nix
   ];
 }
