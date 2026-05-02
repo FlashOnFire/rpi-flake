@@ -50,6 +50,9 @@
   programs.git.enable = true;
   virtualisation.docker.enable = true;
 
+  # mitigation for copy fail cve
+  boot.extraModprobeConfig = "install algif_aead /bin/false";
+
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
