@@ -38,4 +38,5 @@ mkSecret [
   "grafana/secret_key"
   "grafana/oidc_secret"
   "oxicloud/env"
+  "hass/secrets"
 ]

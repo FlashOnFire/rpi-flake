@@ -211,6 +211,7 @@ in
 
         identity_providers.oidc = {
           authorization_policies = {
+
             matrix_policy = {
               default_policy = "deny";
               rules = [
@@ -273,9 +274,23 @@ in
                 }
               ];
             };
+
+            hass_policy = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [
+                    "group:owner"
+                  ];
+                }
+              ];
+            };
+
           };
 
           claims_policies = {
+
             immich_policy = {
               custom_claims = {
                 immich_role = {
@@ -286,6 +301,7 @@ in
                 };
               };
             };
+
             grafana_policy = {
               id_token = [
                 "email"
@@ -294,6 +310,7 @@ in
                 "preferred_username"
               ];
             };
+
           };
 
           scopes = {
@@ -416,6 +433,30 @@ in
               pkce_challenge_method = "S256";
               redirect_uris = [
                 "https://cloud.${_domain_base}/api/auth/oidc/callback"
+              ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
+                "groups"
+              ];
+              grant_types = [
+                "authorization_code"
+              ];
+              response_types = [ "code" ];
+              token_endpoint_auth_method = "client_secret_post";
+            }
+
+            {
+              client_id = "EvMODCopeyM1DRs1QEPItPv4YHCkYE--pFefjtm.c5YCf1.3YpCJyYL0QVwizhaM2lOXXLYm";
+              client_name = "Home Assistant";
+              client_secret = "$pbkdf2-sha512$310000$vtliWjduSSNah4.aT2dNHw$BcONC/UCcjDUewru7PjCDF30H8H2t943qWULo/DmxG7veXjGbsLjdQvTjGFmu8gCDAe6Rel8.Inb/x0kFH2ddw";
+              public = false;
+              authorization_policy = "hass_policy";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              redirect_uris = [
+                "https://hass.${_domain_base}/auth/oidc/callback"
               ];
               scopes = [
                 "openid"
