@@ -34,7 +34,7 @@
     };
 
     nixpkgs-patch-add-oxicloud-module = {
-      url = "https://github.com/flashonfire/nixpkgs/commit/09cfca4aa380.patch";
+      url = "https://github.com/flashonfire/nixpkgs/commit/06217a4eccbd.patch";
       flake = false;
     };
 

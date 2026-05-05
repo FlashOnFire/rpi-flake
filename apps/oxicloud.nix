@@ -23,7 +23,7 @@ in
   services.oxicloud = {
     enable = true;
     dataDir = "/storage/oxicloud";
-    createDatabase = true;
+    createLocalDatabase = true;
 
     environmentFiles = [
       (secrets.get "oxicloud/env")

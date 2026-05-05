@@ -163,13 +163,13 @@
     "nixpkgs-patch-add-oxicloud-module": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-580vUqUf6acmjQavIIHqNLgQskbvohdihWVqr+rlQdE=",
+        "narHash": "sha256-6U0dre7pr9+0vGZlnIkoDTw3rPt9IgFilcwdhWE3684=",
         "type": "file",
-        "url": "https://github.com/flashonfire/nixpkgs/commit/09cfca4aa380.patch"
+        "url": "https://github.com/flashonfire/nixpkgs/commit/06217a4eccbd.patch"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/flashonfire/nixpkgs/commit/09cfca4aa380.patch"
+        "url": "https://github.com/flashonfire/nixpkgs/commit/06217a4eccbd.patch"
       }
     },
     "nixpkgs-patch-fix-matter-server": {
