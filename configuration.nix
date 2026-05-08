@@ -50,8 +50,19 @@
   programs.git.enable = true;
   virtualisation.docker.enable = true;
 
-  # mitigation for copy fail cve
-  boot.extraModprobeConfig = "install algif_aead /bin/false";
+  # mitigations for copy fail and dirty frag CVEs
+  boot.extraModprobeConfig = ''
+    install algif_aead /bin/false
+    install esp4 /bin/false
+    install esp6 /bin/false
+    install rxrpc /bin/false
+  '';
+
+  boot.blacklistedKernelModules = [
+    "rxrpc"
+    "esp6"
+    "esp4"
+  ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
