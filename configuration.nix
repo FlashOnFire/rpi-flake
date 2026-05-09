@@ -64,6 +64,10 @@
     "esp4"
   ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "olm-3.2.16" # mautrix-discord
+  ];
+
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.

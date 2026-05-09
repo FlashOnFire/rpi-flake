@@ -1,4 +1,6 @@
 {
+  lib,
+  pkgs,
   config,
   _domain_base,
   _utils,
@@ -9,12 +11,15 @@ let
     secrets = [
       "synapse-signingKey"
       "synapse-masSharedSecret"
+      "matrix/shared_secret"
     ];
     extra = {
       owner = "matrix-synapse";
       group = "matrix-synapse";
     };
   };
+
+  puppetFile = "/storage/matrix-synapse/discord-double-puppet.yaml";
 in
 {
   imports = [
@@ -68,6 +73,8 @@ in
         }
       ];
 
+      app_service_config_files = [ puppetFile ];
+
       experimental_features = {
         msc3266_enabled = true; # room summary api;
         msc4222_enabled = true; # syncv2 state_after
@@ -111,4 +118,36 @@ in
         LC_CTYPE = "C";
     ''
   ];
+
+  systemd.services.matrix-synapse = {
+    serviceConfig = {
+      EnvironmentFile = secrets.get "matrix/shared_secret";
+      SystemCallFilter = lib.mkForce [ "@system-service" ]; # making the service less secure to be able to modify files
+    };
+    preStart = lib.mkBefore ''
+      test -f '${puppetFile}' && rm -f '${puppetFile}'
+      ${pkgs.envsubst}/bin/envsubst \
+          -o '${puppetFile}' \
+          -i '${
+            (pkgs.writeText "discord-double-puppet.yaml" (
+              lib.generators.toYAML { } {
+                id = "doublepuppet";
+                url = "";
+                as_token = "$SHARED_AS_TOKEN";
+                hs_token = "neverused";
+                sender_localpart = "neverused";
+                rate_limited = false;
+                namespaces = {
+                  users = [
+                    {
+                      regex = "@.*:lithium\.ovh";
+                      exclusive = false;
+                    }
+                  ];
+                };
+              }
+            ))
+          }'
+    '';
+  };
 }

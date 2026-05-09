@@ -6,5 +6,6 @@
     ./element-call.nix
     ./mas.nix
     ./synapse.nix
+    ./bridges
   ];
 }

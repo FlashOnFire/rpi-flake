@@ -39,4 +39,5 @@ mkSecret [
   "grafana/oidc_secret"
   "oxicloud/env"
   "hass/secrets"
+  "matrix/shared_secret"
 ]
