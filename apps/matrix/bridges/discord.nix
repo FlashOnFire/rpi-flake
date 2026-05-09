@@ -63,6 +63,7 @@ in
       CREATE DATABASE "mautrix-discord" WITH OWNER "mautrix-discord"
         TEMPLATE template0
         LC_COLLATE = "C"
-        LC_CTYPE = "C";''
+        LC_CTYPE = "C";
+    ''
   ];
 }
