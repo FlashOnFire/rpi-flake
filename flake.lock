@@ -172,6 +172,18 @@
         "url": "https://github.com/flashonfire/nixpkgs/commit/06217a4eccbd.patch"
       }
     },
+    "nixpkgs-patch-fix-mas-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-j5JBCceOU+NUrRMNLcG1bsUcA11vssQegwC7kTZCGlU=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/a07a34fdca18.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/a07a34fdca18.patch"
+      }
+    },
     "nixpkgs-patch-fix-matter-server": {
       "flake": false,
       "locked": {
@@ -232,18 +244,6 @@
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/5e9b1541b3075895b38d7dad4fe4a7748704e809.patch"
       }
     },
-    "nixpkgs-patch-fix-python-orjson-cross": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-LTR5H4aB8v2XVYRUVzbLs7nrnvgjogrNlsI0LEOx92k=",
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/96b4c4a72fa20d01d22b4043fab1b0793070454d.patch"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/96b4c4a72fa20d01d22b4043fab1b0793070454d.patch"
-      }
-    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1777981454,
@@ -266,12 +266,12 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-add-oxicloud-module": "nixpkgs-patch-add-oxicloud-module",
+        "nixpkgs-patch-fix-mas-cross": "nixpkgs-patch-fix-mas-cross",
         "nixpkgs-patch-fix-matter-server": "nixpkgs-patch-fix-matter-server",
         "nixpkgs-patch-fix-mypy": "nixpkgs-patch-fix-mypy",
         "nixpkgs-patch-fix-oxicloud-cross": "nixpkgs-patch-fix-oxicloud-cross",
         "nixpkgs-patch-fix-python-hass-chip-wheels": "nixpkgs-patch-fix-python-hass-chip-wheels",
         "nixpkgs-patch-fix-python-librt-cross": "nixpkgs-patch-fix-python-librt-cross",
-        "nixpkgs-patch-fix-python-orjson-cross": "nixpkgs-patch-fix-python-orjson-cross",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }

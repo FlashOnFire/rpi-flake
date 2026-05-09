@@ -13,11 +13,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs-patch-fix-python-orjson-cross = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/96b4c4a72fa20d01d22b4043fab1b0793070454d.patch";
-      flake = false;
-    };
-
     nixpkgs-patch-fix-python-librt-cross = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/5e9b1541b3075895b38d7dad4fe4a7748704e809.patch";
       flake = false;
@@ -45,6 +40,11 @@
 
     nixpkgs-patch-fix-matter-server = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/187b474c85e9.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-mas-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/a07a34fdca18.patch";
       flake = false;
     };
 
@@ -112,9 +112,24 @@
                     forgejo = nativeAarch64Pkgs.forgejo;
                     adguardhome = nativeAarch64Pkgs.adguardhome;
                     cinny = nativeAarch64Pkgs.cinny;
-                    matrix-synapse = nativeAarch64Pkgs.matrix-synapse;
                     fio = nativeAarch64Pkgs.fio;
-                    matrix-authentication-service = nativeAarch64Pkgs.matrix-authentication-service;
+                    # matrix-synapse = nativeAarch64Pkgs.matrix-synapse;
+                    # matrix-authentication-service = nativeAarch64Pkgs.matrix-authentication-service;
+                  })
+                  (final: prev: {
+                    matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (_: {
+                      version = "1.152.1";
+                      src = prev.fetchFromGitHub {
+                        owner = "element-hq";
+                        repo = "synapse";
+                        rev = "v1.152.1";
+                        hash = "sha256-81nqT6/TuqtQjjqnT6O+72WCCPlZ9JJKbWczMh6mbcU=";
+                      };
+                    });
+
+                    matrix-synapse = prev.matrix-synapse.override {
+                      matrix-synapse-unwrapped = final.matrix-synapse-unwrapped;
+                    };
                   })
                 ];
               }
