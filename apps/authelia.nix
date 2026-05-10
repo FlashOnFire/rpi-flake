@@ -27,25 +27,25 @@ in
     secrets.generate
   ];
 
-  services.postgresql = {
-    ensureDatabases = [ "authelia-main" ];
-    ensureUsers = [
-      {
-        name = "authelia-main";
-        ensureDBOwnership = true;
-      }
+  users.groups."authelia-socket" = {
+    members = [
+      "caddy"
     ];
   };
+
+  systemd.services.caddy.serviceConfig.SupplementaryGroups = [
+    "authelia-socket"
+  ];
+
+  systemd.tmpfiles.rules = [
+    "d /run/authelia 2750 authelia-main authelia-socket -"
+  ];
 
   systemd.services."authelia-main" = {
     environment = {
       # needed to set the secrets using agenix see: https://www.authelia.com/configuration/methods/files/#file-filters
       X_AUTHELIA_CONFIG_FILTERS = "template";
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.get "smtp";
-    };
-    serviceConfig = {
-      RuntimeDirectory = "authelia";
-      RuntimeDirectoryMode = 775;
     };
   };
 
@@ -475,4 +475,15 @@ in
       };
     };
   };
+
+  services.postgresql = {
+    ensureDatabases = [ "authelia-main" ];
+    ensureUsers = [
+      {
+        name = "authelia-main";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
+
 }

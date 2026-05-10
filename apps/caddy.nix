@@ -39,10 +39,6 @@ let
   };
 in
 {
-  users.users."caddy".extraGroups = [
-    "authelia-main"
-  ];
-
   services.caddy = {
     enable = true;
 
