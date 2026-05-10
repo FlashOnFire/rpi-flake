@@ -41,9 +41,32 @@ in
 {
   services.caddy = {
     enable = true;
+    package = pkgs.caddy.withPlugins {
+      plugins = [
+        "github.com/mholt/caddy-ratelimit@v0.1.0"
+        "github.com/mholt/caddy-l4@v0.1.0"
+      ];
+      hash = "sha256-xpY7nLPaI73DmYFRBXfjv11/NFmJVTEWqMdONqdzay8=";
+    };
 
     globalConfig = ''
       admin off
+
+      layer4 {
+          :853 {
+              @dot tls sni dns.lithium.ovh
+              route @dot {
+                  tls
+                  proxy {
+                    upstream {
+                      max_connections 50
+                      tls_insecure_skip_verify
+                      dial 127.0.0.1:3007
+                    }
+                  }
+              }
+          }
+      }
     '';
 
     extraConfig = ''
@@ -111,11 +134,36 @@ in
     '';
 
     virtualHosts."https://dns.${_domain_base}".extraConfig = ''
-      import authelia_auth
-      import common
-      import default_permissions
+      handle /dns-query {
+          rate_limit {
+              zone dns_conns {
+                  key    {remote_host}
+                  events 10
+                  window 1s
+              }
+              zone dns_req {
+                  key    {remote_host}
+                  events 300
+                  window 1m
+              }
+          }
 
-      import custom_reverse_proxy :3005
+          reverse_proxy https://[::1]:3006 {
+            transport http {
+              tls_insecure_skip_verify
+            }
+            header_up X-Real-IP {remote_host}
+            header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
+          }
+      }
+
+      handle {
+          import authelia_auth
+          import common
+          import default_permissions
+
+          import custom_reverse_proxy :3005
+      }
     '';
 
     virtualHosts."https://matrix-rtc.${_domain_base}".extraConfig = ''

@@ -2,20 +2,20 @@
 {
   networking.hostName = "lithium";
 
-  networking.hosts = {
-    "127.0.0.1" = [
-      "lithium.ovh"
-      "auth.lithium.ovh"
-      "mas.lithium.ovh"
-      "matrix.lithium.ovh"
-    ];
-    "::1" = [
-      "lithium.ovh"
-      "auth.lithium.ovh"
-      "mas.lithium.ovh"
-      "matrix.lithium.ovh"
-    ];
-  };
+  # networking.hosts = {
+  #   "127.0.0.1" = [
+  #     "lithium.ovh"
+  #     "auth.lithium.ovh"
+  #     "mas.lithium.ovh"
+  #     "matrix.lithium.ovh"
+  #   ];
+  #   "::1" = [
+  #     "lithium.ovh"
+  #     "auth.lithium.ovh"
+  #     "mas.lithium.ovh"
+  #     "matrix.lithium.ovh"
+  #   ];
+  # };
 
   networking.useNetworkd = true;
 
@@ -58,8 +58,9 @@
   # networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   networking.firewall.allowedTCPPorts = [
-    443
+    443 # HTTPS
     7881
+    853 # DNS over TLS
   ];
   networking.firewall.extraInputRules = ''
     ip saddr 192.168.1.0/24 udp dport 53 accept
