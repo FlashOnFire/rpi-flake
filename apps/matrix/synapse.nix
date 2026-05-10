@@ -122,7 +122,6 @@ in
   systemd.services.matrix-synapse = {
     serviceConfig = {
       EnvironmentFile = secrets.get "matrix/shared_secret";
-      SystemCallFilter = lib.mkForce [ "@system-service" ]; # making the service less secure to be able to modify files
     };
     preStart = lib.mkBefore ''
       test -f '${puppetFile}' && rm -f '${puppetFile}'
