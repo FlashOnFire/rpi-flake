@@ -176,9 +176,40 @@ in
         RestartSec = "5s";
         ExecStartPre = "${binary} config check --config ${settingsFile}";
         ExecStart = "${binary} --config ${settingsFile} server";
-        # DynamicUser = true;
         User = "mas";
         Group = "mas";
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        PrivateMounts = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectKernelLogs = true;
+        ProtectClock = true;
+        ProtectHostname = true;
+        ProtectControlGroups = true;
+        ProtectProc = "invisible";
+        ProcSubset = "pid";
+        RestrictSUIDSGID = true;
+        RestrictNamespaces = true;
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
+        LockPersonality = true;
+        RestrictRealtime = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "@system-service"
+        ];
+        SystemCallErrorNumber = "EPERM";
+        CapabilityBoundingSet = "";
+        AmbientCapabilities = "";
+        RemoveIPC = true;
+        UMask = "0077";
       };
   };
 }
