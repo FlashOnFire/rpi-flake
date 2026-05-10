@@ -29,12 +29,13 @@
     users = {
       otbr = {
         isSystemUser = true;
-        group = "otbr";
+        group = "otbr-radio-socket";
         description = "OpenThread Border Router service user";
       };
     };
 
-    groups.otbr = { };
+    groups."otbr-radio-socket" = { };
+    groups."otbr-socket" = { };
   };
 
   systemd.services.socat-otbr = {
@@ -45,10 +46,10 @@
 
     serviceConfig = {
       User = "otbr";
-      Group = "otbr";
+      Group = "otbr-radio-socket";
       RuntimeDirectory = "otbr";
       RuntimeDirectoryMode = "0750";
-      ExecStart = "${pkgs.socat}/bin/socat pty,link=/run/otbr/ttyOTBR,raw,echo=0,b460800,mode=0660,group=otbr tcp:192.168.1.198:6638";
+      ExecStart = "${pkgs.socat}/bin/socat pty,link=/run/otbr/ttyOTBR,raw,echo=0,b460800,mode=0660,group=otbr-radio-socket tcp:192.168.1.198:6638";
       Restart = "always";
       RestartSec = "5s";
     };
@@ -58,10 +59,19 @@
     after = [ "socat-otbr.service" ];
     requires = [ "socat-otbr.service" ];
     serviceConfig = {
-      SupplementaryGroups = [ "otbr" ];
+      Group = "otbr-socket";
+      SupplementaryGroups = [ "otbr-radio-socket" ];
+      ExecStartPost = "${pkgs.bash}/bin/bash -c 'for i in $(${pkgs.coreutils}/bin/seq 1 50); do if [ -S /run/openthread-wpan0.sock ]; then ${pkgs.coreutils}/bin/chgrp otbr-socket /run/openthread-wpan0.sock; ${pkgs.coreutils}/bin/chmod 770 /run/openthread-wpan0.sock; exit 0; fi; ${pkgs.coreutils}/bin/sleep 0.1; done; exit 0'";
       ReadWritePaths = [
         "/run/otbr"
       ];
+    };
+  };
+
+  systemd.services.otbr-web = {
+    serviceConfig = {
+      PrivateUsers = lib.mkForce false;
+      SupplementaryGroups = [ "otbr-socket" ];
     };
   };
 }
