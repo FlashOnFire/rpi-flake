@@ -192,7 +192,18 @@ in
       import common
       header Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(self), sync-xhr=(), usb=(), xr-spatial-tracking=()"
 
-      import custom_reverse_proxy :3004
+      @forgejo_bypass {
+        path_regexp ^(/[^/]+/[^/]+/info/refs|/[^/]+/[^/]+/git-upload-pack|/[^/]+/[^/]+/git-receive-pack|/[^/]+/[^/]+/hooks/.+)$
+        path /api/*
+      }
+
+      handle @forgejo_bypass {
+        import custom_reverse_proxy :3004
+      }
+
+      import custom_reverse_proxy unix//run/anubis/anubis-forgejo/anubis.sock {
+        header_up X-Real-IP {remote_host}
+      }
     '';
 
     virtualHosts."https://vaultwarden.${_domain_base}".extraConfig = ''

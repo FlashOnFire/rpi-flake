@@ -105,6 +105,7 @@
                     # These do not cross compile
                     atop = nativeAarch64Pkgs.atop;
                     openblas = nativeAarch64Pkgs.openblas;
+                    anubis = nativeAarch64Pkgs.anubis;
 
                     # Speed up compilation by leveraging cache
                     kitty = nativeAarch64Pkgs.kitty;

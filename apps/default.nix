@@ -19,5 +19,6 @@
     ./oxicloud.nix
     ./otbr.nix
     ./matter.nix
+    ./anubis.nix
   ];
 }
