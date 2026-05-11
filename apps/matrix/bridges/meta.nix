@@ -58,7 +58,7 @@ in
 
           network = {
             mode = "instagram";
-            displayname_template = "{{ or .GlobalName .Username .ID }} (Instagram)";
+            displayname_template = "{{ or .DisplayName .Username .ID }} (Instagram)";
           };
         };
       };
