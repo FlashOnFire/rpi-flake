@@ -34,7 +34,7 @@
     };
 
     nixpkgs-patch-fix-oxicloud-cross = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/5ed331e4c2375a0f8362b40188cc498673e80141.patch";
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/3731a27f20d3.patch";
       flake = false;
     };
 
@@ -106,6 +106,7 @@
                     atop = nativeAarch64Pkgs.atop;
                     openblas = nativeAarch64Pkgs.openblas;
                     anubis = nativeAarch64Pkgs.anubis;
+                    redis = nativeAarch64Pkgs.redis;
 
                     # Speed up compilation by leveraging cache
                     kitty = nativeAarch64Pkgs.kitty;

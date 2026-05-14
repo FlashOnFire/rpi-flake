@@ -211,13 +211,13 @@
     "nixpkgs-patch-fix-oxicloud-cross": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-um5tz6/dWC3dXuWO6PpM7PylTPQefaFQEayLueTyWhE=",
+        "narHash": "sha256-yVhJJdRd9roiXcCGLawsCABnZMUuD7u37Uq8I4RT7U0=",
         "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5ed331e4c2375a0f8362b40188cc498673e80141.patch"
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/3731a27f20d3.patch"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5ed331e4c2375a0f8362b40188cc498673e80141.patch"
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/3731a27f20d3.patch"
       }
     },
     "nixpkgs-patch-fix-python-hass-chip-wheels": {

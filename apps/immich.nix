@@ -1,7 +1,6 @@
 {
   config,
   _utils,
-  _domain_base,
   ...
 }:
 let
