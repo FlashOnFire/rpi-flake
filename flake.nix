@@ -24,7 +24,7 @@
     };
 
     nixpkgs-patch-fix-python-hass-chip-wheels = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/b8497adabdd2.patch";
+      url = "https://github.com/flashonfire/nixpkgs/commit/53cc657f8cf5a91f01bc3e5257ac8cc0fbaf8bb2.patch";
       flake = false;
     };
 
@@ -44,7 +44,7 @@
     };
 
     nixpkgs-patch-fix-mas-cross = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/a07a34fdca18.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/518426.patch";
       flake = false;
     };
 
