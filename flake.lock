@@ -172,18 +172,6 @@
         "url": "https://github.com/flashonfire/nixpkgs/commit/06217a4eccbd.patch"
       }
     },
-    "nixpkgs-patch-fix-mas-cross": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-bIX0Dtz0oviaqRR+m4ZuGqvNt5jb6FWynaCLxVCZIhY=",
-        "type": "file",
-        "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/518426.patch"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/518426.patch"
-      }
-    },
     "nixpkgs-patch-fix-matter-server": {
       "flake": false,
       "locked": {
@@ -266,7 +254,6 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-add-oxicloud-module": "nixpkgs-patch-add-oxicloud-module",
-        "nixpkgs-patch-fix-mas-cross": "nixpkgs-patch-fix-mas-cross",
         "nixpkgs-patch-fix-matter-server": "nixpkgs-patch-fix-matter-server",
         "nixpkgs-patch-fix-mypy": "nixpkgs-patch-fix-mypy",
         "nixpkgs-patch-fix-oxicloud-cross": "nixpkgs-patch-fix-oxicloud-cross",

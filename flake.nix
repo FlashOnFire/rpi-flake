@@ -43,11 +43,6 @@
       flake = false;
     };
 
-    nixpkgs-patch-fix-mas-cross = {
-      url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/518426.patch";
-      flake = false;
-    };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
